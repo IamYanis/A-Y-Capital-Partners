@@ -1,0 +1,22 @@
+# Examples only: NOT the competition eligible universe or its rules.
+[data]
+source = "synthetic"
+tickers = ["VOD.L", "HSBA.L", "AZN.L"]
+start = "2022-01-01"
+end = "2024-01-01"
+cache_dir = "data/cache"
+# Used only in Yahoo mode. User-verified conversion is mandatory.
+# These example London equity quotes are in pence; do not infer units from suffixes.
+gbp_per_quote_unit = [0.01, 0.01, 0.01]
+
+[research]
+periods_per_year = 252
+risk_free_rate = 0.0
+
+[portfolio]
+max_weight = 0.6
+# Illustrative research limit, not a competition rule.
+
+[competition]
+rules_configured = false
+# eligible_assets deliberately absent until official rules are entered.
