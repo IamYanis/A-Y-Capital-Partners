@@ -1,4 +1,4 @@
-# A-Y Capital Partners — Version 0.1
+# A-Y Capital Partners — Version 0.2
 
 A Python quantitative research foundation for the Umushroom UK Investment
 Competition 2026. Competition rules and eligibility have **not been configured**.

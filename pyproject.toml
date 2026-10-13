@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "aycapital"
-version = "0.1.0"
+version = "0.2.0"
 description = "Reproducible quantitative investment research"
 requires-python = ">=3.12"
 dependencies = ["numpy>=2.0,<3", "pandas>=2.2,<3", "scipy>=1.14,<2", "scikit-learn>=1.5,<2", "cvxpy>=1.6,<2", "yfinance>=0.2.54,<1", "requests>=2.32,<3", "pyyaml>=6,<7", "exchange-calendars>=4.8,<5", "plotly>=6,<7"]
