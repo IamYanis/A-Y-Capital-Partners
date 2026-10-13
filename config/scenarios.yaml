@@ -1,0 +1,98 @@
+# Prototype shocks are assumptions, not predictions. Return units: fractions.
+# UUP USD return is explicitly assumed zero in all scenarios (added for v0.2 universe).
+kind: hypothetical
+horizon_sessions: 40
+max_fx_age_days: 6
+scenarios:
+  Disinflation / soft landing:
+    description: Manually specified prototype assumptions; not empirical estimates.
+    gbp_per_usd_return: -0.03
+    asset_returns_usd:
+      SPY: 0.08
+      QQQ: 0.12
+      IWM: 0.1
+      VGK: 0.07
+      EEM: 0.09
+      SGOV: 0.006999999999999999
+      IEF: 0.05
+      TLT: 0.09
+      GLD: 0.05
+      DBC: -0.01
+      XLE: -0.02
+      LQD: 0.04
+      HYG: 0.05
+      UUP: 0.0
+  Sticky inflation / rates higher:
+    description: Manually specified prototype assumptions; not empirical estimates.
+    gbp_per_usd_return: 0.03
+    asset_returns_usd:
+      SPY: -0.08
+      QQQ: -0.13
+      IWM: -0.12
+      VGK: -0.09
+      EEM: -0.12
+      SGOV: 0.006
+      IEF: -0.04
+      TLT: -0.1
+      GLD: 0.01
+      DBC: 0.08
+      XLE: 0.1
+      LQD: -0.05
+      HYG: -0.06
+      UUP: 0.0
+  Growth shock / recession:
+    description: Manually specified prototype assumptions; not empirical estimates.
+    gbp_per_usd_return: 0.05
+    asset_returns_usd:
+      SPY: -0.18
+      QQQ: -0.22
+      IWM: -0.25
+      VGK: -0.18
+      EEM: -0.22
+      SGOV: 0.006
+      IEF: 0.08
+      TLT: 0.14
+      GLD: 0.07
+      DBC: -0.17
+      XLE: -0.23
+      LQD: 0.01
+      HYG: -0.13
+      UUP: 0.0
+  Risk-on rebound:
+    description: Manually specified prototype assumptions; not empirical estimates.
+    gbp_per_usd_return: -0.02
+    asset_returns_usd:
+      SPY: 0.12
+      QQQ: 0.2
+      IWM: 0.17
+      VGK: 0.11
+      EEM: 0.14
+      SGOV: 0.006
+      IEF: -0.02
+      TLT: -0.05
+      GLD: -0.03
+      DBC: 0.06
+      XLE: 0.08
+      LQD: 0.01
+      HYG: 0.06
+      UUP: 0.0
+portfolios:
+  Prototype allocation:
+    SPY: 0.15
+    VGK: 0.1
+    QQQ: 0.05
+    SGOV: 0.2
+    IEF: 0.2
+    GLD: 0.15
+    XLE: 0.05
+    LQD: 0.1
+  Defensive illustration:
+    SGOV: 0.4
+    IEF: 0.25
+    GLD: 0.2
+    SPY: 0.15
+  Growth illustration:
+    SPY: 0.45
+    QQQ: 0.25
+    IWM: 0.15
+    VGK: 0.15

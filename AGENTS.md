@@ -59,3 +59,14 @@ self-financing fractional trade quantities rather than charge pre-fee target cha
 Maintain independent share-ledger and expired-vintage regression tests. Descriptive
 regime diagnostics use future returns only for evaluation and never for signals;
 overlapping horizons do not provide independent significance tests.
+
+Scenario extensions: use cross_asset.fx for explicit available-at FX matching,
+data.to_gbp for conversion, benchmarks.py for composition of existing metrics, and
+scenarios.py for hypothetical terminal shocks. Reuse the backtest ledger through
+fixed_weight_history; do not implement another portfolio simulator. Preserve old
+walk_forward behavior. Every scenario needs complete asset shocks; never impute a
+missing shock or normalize invalid weights silently. Native/FX shocks are fractions.
+Keep hypothetical stress ranks separate from historical scores and any future
+empirical calibration. Show asset/FX observation dates and asynchronous-valuation
+warnings. Dashboard reads saved data only. Run dashboard integration tests with
+`uv run --locked --extra dashboard pytest -q` and scenario CLI smoke checks.
