@@ -7,14 +7,16 @@ name = "aycapital"
 version = "0.1.0"
 description = "Reproducible quantitative investment research"
 requires-python = ">=3.12"
-dependencies = ["numpy>=2.0,<3", "pandas>=2.2,<3", "scipy>=1.14,<2", "scikit-learn>=1.5,<2", "cvxpy>=1.6,<2", "yfinance>=0.2.54,<1"]
+dependencies = ["numpy>=2.0,<3", "pandas>=2.2,<3", "scipy>=1.14,<2", "scikit-learn>=1.5,<2", "cvxpy>=1.6,<2", "yfinance>=0.2.54,<1", "requests>=2.32,<3", "pyyaml>=6,<7", "exchange-calendars>=4.8,<5", "plotly>=6,<7"]
 
 [project.optional-dependencies]
 dev = ["pytest>=8,<10", "ruff>=0.9,<1"]
+dashboard = ["streamlit>=1.40,<2"]
 research = ["statsmodels>=0.14,<1", "plotly>=6,<7", "streamlit>=1.40,<2", "jupyterlab>=4,<5"]
 
 [project.scripts]
 aycapital-demo = "aycapital.demo:main"
+aycapital-research = "aycapital.cross_asset.pipeline:main"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
