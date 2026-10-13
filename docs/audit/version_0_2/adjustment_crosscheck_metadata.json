@@ -1,0 +1,6 @@
+{
+  "provider": "yahoo",
+  "comparison": "Cached auto_adjust=True Close versus new auto_adjust=False Adj Close",
+  "retrieved_at_utc": "2026-10-13T17:27:36.783213+00:00",
+  "limitation": "Same vendor consistency check; not independent total-return or historical-vintage verification"
+}

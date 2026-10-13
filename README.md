@@ -1,4 +1,4 @@
-# A-Y Capital Partners — Version 0.1
+# A-Y Capital Partners — Version 0.2
 
 A Python quantitative research foundation for the Umushroom UK Investment
 Competition 2026. Competition rules and eligibility have **not been configured**.
@@ -98,3 +98,107 @@ supported eligibility/position/group caps must be added before making allocation
 Point-in-time universe and competition-rule ingestion, audited FX/total-return data,
 lead-lag research with multiple-testing controls, shifted signals and walk-forward
 backtests with costs, benchmarks and sensitivity analysis. These are future work.
+
+## Cross-Asset Research Engine — Phase 1
+
+The new engine extends the Version 0.1 library; all original APIs and the demo
+remain available. It ranks 14 configurable liquid US-listed cross-asset proxies.
+These USD instruments are **not** an eligible competition universe. The scores
+summarize price evidence, without predicting a calibrated 4–8 week return.
+
+```bash
+uv sync --locked --extra dev
+# Real adjusted prices: six years requested by default, ending before today.
+uv run --locked aycapital-research
+# Fixed dates and explicit output directory for reproducible research:
+uv run --locked aycapital-research --start 2020-10-13 --end 2026-10-13 \
+  --output outputs/cross_asset_live
+# Entirely offline, clearly labelled synthetic demonstration:
+uv run --locked aycapital-research --source synthetic \
+  --start 2018-01-01 --end 2024-01-01 --output outputs/cross_asset_synthetic
+# Optional FRED charts; set FRED_API_KEY in your environment first:
+uv run --locked aycapital-research --macro
+# --refresh downloads new snapshots while retaining previous snapshot files.
+```
+
+Open `outputs/cross_asset/report.html` in a browser for a standalone interactive
+report (Plotly is embedded; no internet needed to view it). Reports also export
+ranked latest signals in CSV/JSON, per-instrument signal history, 60-session rolling
+correlations, strategy/benchmark equity curves, turnover, performance statistics,
+paper rebalance records and provenance. Synthetic and live runs should use separate
+output directories. Repeating the same configuration/dates with the same market
+snapshots reproduces the numerical outputs; generation timestamps naturally differ.
+
+`config/cross_asset.yaml` defines asset classes, currencies, listing calendars,
+benchmark, history length, signed ranking weights, fixed backtest parameters and
+FRED series. All initial proxies use USD quotes and a common XNYS calendar. Mixed
+calendars or currencies are rejected rather than silently conflated. The existing
+`to_gbp` API can handle explicit synchronized FX conversion; this engine currently
+reports USD research, **not GBP portfolio exposure**.
+
+Signal definitions and assumptions are documented in
+[docs/cross_asset.md](docs/cross_asset.md). In brief, rolling price metrics are ranked
+against peers at each date, with no full-history normalization. Post-close signals
+execute at the next session close; the first earned return follows that fill.
+In-sample and out-of-sample results are separate accounts using fixed rules;
+there is no automatic hyperparameter fitting or claim of predictive validation.
+
+### Optional saved-results dashboard
+
+The dashboard reads completed artifacts and never downloads or trades:
+
+```bash
+uv sync --locked --extra dev --extra dashboard
+uv run --locked --extra dashboard streamlit run scripts/cross_asset_dashboard.py
+```
+
+Select the appropriate output directory in its sidebar. Synthetic results retain
+explicit source labels. The richer interactive signal and macro figures remain in
+the standalone HTML report.
+
+### Verification
+
+```bash
+uv run --locked pytest -q
+uv run --locked ruff check .
+uv run --locked aycapital-demo
+uv run --locked aycapital-research --source synthetic \
+  --start 2018-01-01 --end 2024-01-01 --output outputs/verification
+```
+
+Tests use deterministic synthetic observations and mocked market/FRED providers.
+They test exchange holidays/early closes, missing/incomplete data, immutable caches,
+release dates and revisions, signal formulae, future-price perturbations, delayed
+execution, drift-aware turnover, costs, split accounts and report integration.
+Calendar/pandas dependencies currently emit NumPy timedelta deprecation warnings;
+they do not prevent the test suite from passing.
+
+### Phase 1 limits and Phase 2 priorities
+
+- Vendor adjustments are total-return approximations with no historical vintage
+  guarantees. Static proxies introduce survivorship/selection bias. A cache snapshot
+  improves reproducibility but does not make prices point-in-time corporate-action data.
+- Missing internal/trailing sessions fail validation. Leading unavailable history
+  is logged and trimmed to the common sample. This can shorten history below five
+  years for newly listed proxies; five-plus years are requested where available.
+- Next-close fills omit intraday spreads, impact, liquidity limits and realistic
+  order execution. Costs solve a self-financing proportional buy-plus-sell notional fee equation; cash earns zero. This is a research approximation.
+- FRED needs an API key. Latest snapshots are chart-only and cannot enter earlier
+  backtests. Vintage mode uses actual FRED real-time dates with a conservative
+  next-UTC-day delay because intraday publication times are unavailable. Macro is
+  never used in the Phase 1 strategy. Complete vintage coverage is not guaranteed.
+- Official competition rules, GBP exposure, position sizing and execution remain
+  unimplemented in this engine. No live trading or brokerage integration exists.
+- Phase 2: verified competition mapping/constraints, point-in-time universe and
+  prices, audited GBP FX, nested walk-forward parameter selection, costs/slippage
+  sensitivity, macro release-timestamp validation and multiple-testing controls.
+
+## Version 0.2 quantitative audit
+
+See [the research audit](docs/audit/version_0_2_audit.md) for temporal-data fixes,
+independent fee-accounting checks, historical regime diagnostics and competition-use
+limitations. Macro as-of queries now honor validity ends and retrieval coverage.
+Backtest fees solve self-financing trade quantities, so older output artifacts must
+be regenerated. Rankings are persistent but forward rank correlations vary across
+periods; predictive reliability is not established. GBP conversion and verified
+UMushroom instrument/rule mapping remain required before competition allocations.
