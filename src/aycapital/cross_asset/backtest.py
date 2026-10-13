@@ -77,6 +77,7 @@ def _simulate(
     cost_bps: float,
     benchmark: str,
     label: str,
+    fixed_allocations: dict[str, pd.Series] | None = None,
 ) -> tuple[pd.DataFrame, pd.DataFrame, list[dict]]:
     """Cash starts at one. Rebalance after applying the old holdings' session return.
 
@@ -86,7 +87,9 @@ def _simulate(
     prices = panel.prices
     assets = prices.columns
     daily = prices.pct_change(fill_method=None)
-    names = ["strategy", benchmark, "equal_weight"]
+    names = (
+        list(fixed_allocations) if fixed_allocations else ["strategy", benchmark, "equal_weight"]
+    )
     holdings = {name: pd.Series(0.0, index=assets) for name in names}
     records, turnovers, trades = [], [], []
     cost_rate = cost_bps / 10000
@@ -103,7 +106,9 @@ def _simulate(
             if name == benchmark:
                 rebalance = position == start  # Buy-and-hold benchmark, same entry cost.
             if rebalance:
-                if name == "strategy":
+                if fixed_allocations is not None:
+                    target = fixed_allocations[name]
+                elif name == "strategy":
                     target = target_weights(scores.iloc[position - 1], top_n)
                 elif name == benchmark:
                     target = pd.Series(0.0, index=assets)
@@ -235,3 +240,40 @@ def walk_forward(
             "limitations": "Static universe; vendor adjustments; no predictive accuracy claim",
         },
     )
+
+
+def fixed_weight_history(
+    panel: MarketPanel,
+    portfolios: dict[str, pd.Series],
+    benchmark: str,
+    rebalance_sessions: int = 20,
+    transaction_cost_bps: float = 0.0,
+) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+    """Historical fixed allocations using the audited simulation and fee ledger.
+
+    Ex-post allocation comparison, not OOS validation of weights chosen today.
+    Starts in cash; first fill at second session close. Benchmark is buy-and-hold.
+    """
+    panel = validate_panel(panel)
+    positive_int(rebalance_sessions, "rebalance_sessions")
+    if not portfolios or benchmark not in portfolios:
+        raise ValueError("Comparison portfolios must include the named benchmark")
+    if not np.isfinite(transaction_cost_bps) or not 0 <= transaction_cost_bps < 10000:
+        raise ValueError("Invalid historical transaction costs")
+    for weights in portfolios.values():
+        # Reuse the ledger's validation, also when costs are zero.
+        rebalance_accounting(pd.Series(0.0, index=panel.prices.columns), weights, 0.0)
+    dummy_scores = pd.DataFrame(0.0, index=panel.prices.index, columns=panel.prices.columns)
+    returns, turnover, trades = _simulate(
+        panel,
+        dummy_scores,
+        1,
+        len(panel.prices),
+        1,
+        rebalance_sessions,
+        transaction_cost_bps,
+        benchmark,
+        "historical_comparison",
+        portfolios,
+    )
+    return returns, turnover, pd.DataFrame(trades)

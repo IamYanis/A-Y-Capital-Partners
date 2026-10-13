@@ -17,6 +17,7 @@ research = ["statsmodels>=0.14,<1", "plotly>=6,<7", "streamlit>=1.40,<2", "jupyt
 [project.scripts]
 aycapital-demo = "aycapital.demo:main"
 aycapital-research = "aycapital.cross_asset.pipeline:main"
+aycapital-scenarios = "aycapital.cross_asset.scenario_pipeline:main"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
