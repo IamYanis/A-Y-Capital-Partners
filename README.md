@@ -202,3 +202,31 @@ Backtest fees solve self-financing trade quantities, so older output artifacts m
 be regenerated. Rankings are persistent but forward rank correlations vary across
 periods; predictive reliability is not established. GBP conversion and verified
 UMushroom instrument/rule mapping remain required before competition allocations.
+
+## GBP benchmark and scenario dashboard
+
+The scenario module reuses v0.2 data, signals, risk and audited backtesting. It adds
+GBP price evidence, US-equity/equal-weight benchmarks and editable **hypothetical**
+macro shocks/portfolio comparisons. Historical rankings do not validate 20–40-session
+forecasts; scenarios are manually chosen assumptions. Research proxies remain
+separate from unverified UMushroom-eligible instruments.
+
+```bash
+uv sync --locked --extra dev --extra dashboard
+uv run --locked aycapital-scenarios
+uv run --locked --extra dashboard streamlit run scripts/scenario_dashboard.py
+```
+
+Open http://localhost:8501. The default saved data directory is outputs/scenarios.
+For an explicit offline illustration, first run:
+
+```bash
+uv run --locked aycapital-scenarios --source synthetic --start 2018-01-01 --end 2024-01-01 --output outputs/scenarios_synthetic
+```
+
+Then choose outputs/scenarios_synthetic in the sidebar. See
+[scenario assumptions and methodology](docs/scenarios.md) for FX availability,
+benchmark accounting, prototype integration and future empirical calibration.
+Edit config/scenarios.yaml for shock assumptions and portfolio weights. Equity/FX
+observation dates and data-quality warnings are displayed; dated FX valuations are
+not synchronized closing NAVs.
