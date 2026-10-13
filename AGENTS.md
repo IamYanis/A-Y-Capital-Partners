@@ -33,3 +33,22 @@ do not merge or push without user instruction.
 - Annualize consistently; distinguish simple and log returns. No real trades.
 - Current optimization uses data already observed and demonstrates allocations;
   it does not constitute a backtest or a forecast.
+
+## Cross-asset Phase 1
+
+The cross_asset package extends Version 0.1. Use config/cross_asset.yaml for proxy
+metadata, signed ranking weights, fixed backtest settings and macro series. Keep
+provider I/O separate from causal calculations. market.py uses actual exchange
+sessions and retains immutable cache snapshots. Signals are post-close; backtest
+fills are the following session close, earning returns only after that fill.
+Turnover must reflect weight drift and buy-plus-sell notional, including cash entry.
+IS/OOS accounts are independent; never splice their NAVs into one continuous curve.
+
+Run the existing checks plus:
+`uv run --locked aycapital-research --source synthetic --start 2018-01-01 --end 2024-01-01`.
+The optional dashboard reads saved artifacts only. Test future-price perturbation
+invariance, real calendar holidays and macro release/revision availability. Latest
+FRED snapshots must never enter earlier backtests. Date-only vintages become
+available the following UTC day; do not invent intraday release times. Keep secrets
+out of logs and cached metadata. USD research is not GBP portfolio risk modeling.
+Competition eligibility remains unspecified. Do not claim predictive accuracy.
