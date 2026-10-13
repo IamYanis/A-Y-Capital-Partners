@@ -1,0 +1,47 @@
+# Research proxies only. Competition eligibility and rules remain unknown.
+assets:
+  SPY: {asset_class: US large-cap equities, currency: USD, calendar: XNYS}
+  QQQ: {asset_class: Nasdaq equities, currency: USD, calendar: XNYS}
+  IWM: {asset_class: US small-cap equities, currency: USD, calendar: XNYS}
+  VGK: {asset_class: European equities, currency: USD, calendar: XNYS}
+  EEM: {asset_class: Emerging-market equities, currency: USD, calendar: XNYS}
+  SGOV: {asset_class: Short-term government bonds, currency: USD, calendar: XNYS}
+  IEF: {asset_class: Intermediate government bonds, currency: USD, calendar: XNYS}
+  TLT: {asset_class: Long-term government bonds, currency: USD, calendar: XNYS}
+  GLD: {asset_class: Gold, currency: USD, calendar: XNYS}
+  DBC: {asset_class: Broad commodities, currency: USD, calendar: XNYS}
+  XLE: {asset_class: Energy equities, currency: USD, calendar: XNYS}
+  LQD: {asset_class: Investment-grade credit, currency: USD, calendar: XNYS}
+  HYG: {asset_class: High-yield credit, currency: USD, calendar: XNYS}
+  UUP: {asset_class: US dollar, currency: USD, calendar: XNYS}
+benchmark: SPY
+history_years: 6
+cache_dir: data/cross_asset
+# All proxies trade as US-listed USD instruments. Asset exposure can differ.
+report_currency: USD
+ranking_weights:
+  momentum_20: 1.0
+  momentum_60: 2.0
+  momentum_120: 1.0
+  trend_50: 1.0
+  trend_200: 1.0
+  volatility_adjusted_momentum: 1.0
+  relative_strength: 1.0
+  volatility_60: -1.0
+  rolling_max_drawdown: 1.0
+backtest:
+  top_n: 4
+  rebalance_sessions: 20
+  transaction_cost_bps: 10.0
+  train_fraction: 0.6
+  periods_per_year: 252
+macro:
+  series:
+    DGS2: US 2-year Treasury yield (percent)
+    DGS10: US 10-year Treasury yield (percent)
+    BAMLH0A0HYM2: US high-yield option-adjusted spread (percent)
+    CPIAUCSL: CPI index (seasonally adjusted)
+    PCEPI: PCE price index
+    DTWEXBGS: Broad trade-weighted dollar index
+  mode: latest
+# FRED_API_KEY is read only from the environment. Macro is chart-only in Phase 1.
