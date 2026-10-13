@@ -1,0 +1,321 @@
+{
+  "market": {
+    "source": "yahoo",
+    "calendar": "XNYS",
+    "currency": "USD",
+    "assets": {
+      "SPY": {
+        "request": {
+          "provider": "yahoo",
+          "ticker": "SPY",
+          "start": "2020-10-13",
+          "end": "2026-10-13",
+          "adjusted": true,
+          "schema": 1
+        },
+        "snapshot": "snapshot-54eddd5117be44e18679e1958c79b030.csv",
+        "retrieved_at_utc": "2026-10-13T17:04:20.671390+00:00",
+        "sha256": "83e0887b2caec5a0f49649b048d65758b020af19fd9722224128b42e8a47f87b",
+        "currency": "USD"
+      },
+      "QQQ": {
+        "request": {
+          "provider": "yahoo",
+          "ticker": "QQQ",
+          "start": "2020-10-13",
+          "end": "2026-10-13",
+          "adjusted": true,
+          "schema": 1
+        },
+        "snapshot": "snapshot-f189094d92ee4b73a47a447aba170902.csv",
+        "retrieved_at_utc": "2026-10-13T17:04:20.942862+00:00",
+        "sha256": "f5bdbb8dc7e4043b5fbed871eeb3abf2ccca1d520f92fd6f8fc8318908373dca",
+        "currency": "USD"
+      },
+      "IWM": {
+        "request": {
+          "provider": "yahoo",
+          "ticker": "IWM",
+          "start": "2020-10-13",
+          "end": "2026-10-13",
+          "adjusted": true,
+          "schema": 1
+        },
+        "snapshot": "snapshot-6db0d59fcb424225b1e4672c14ff4d72.csv",
+        "retrieved_at_utc": "2026-10-13T17:04:21.224629+00:00",
+        "sha256": "a0c6d439b9a81957dcbe726dd035361d4aae221ec827f6ed921b9bda1c07a0cf",
+        "currency": "USD"
+      },
+      "VGK": {
+        "request": {
+          "provider": "yahoo",
+          "ticker": "VGK",
+          "start": "2020-10-13",
+          "end": "2026-10-13",
+          "adjusted": true,
+          "schema": 1
+        },
+        "snapshot": "snapshot-0bf556cf375a4af083ceb0f463b7c2f9.csv",
+        "retrieved_at_utc": "2026-10-13T17:04:21.482427+00:00",
+        "sha256": "a8f224158d900e835d497980ecb4ab072c57fc5c4ff3e32d69f87e7d2d742a7c",
+        "currency": "USD"
+      },
+      "EEM": {
+        "request": {
+          "provider": "yahoo",
+          "ticker": "EEM",
+          "start": "2020-10-13",
+          "end": "2026-10-13",
+          "adjusted": true,
+          "schema": 1
+        },
+        "snapshot": "snapshot-6390af5e987b46f68e10a82f9bfd0cdf.csv",
+        "retrieved_at_utc": "2026-10-13T17:04:21.718158+00:00",
+        "sha256": "bdd0e2412026a6f4f0b044d8ba388ffdd1bf604b67087e482da9b2d2df3cf8cf",
+        "currency": "USD"
+      },
+      "SGOV": {
+        "request": {
+          "provider": "yahoo",
+          "ticker": "SGOV",
+          "start": "2020-10-13",
+          "end": "2026-10-13",
+          "adjusted": true,
+          "schema": 1
+        },
+        "snapshot": "snapshot-d8878bfcf65248a29f8ba231ffe0b311.csv",
+        "retrieved_at_utc": "2026-10-13T17:04:22.020087+00:00",
+        "sha256": "1972878868486e27b2160fb9f58bd609ad88f945e242b25d691093a6c9b185bc",
+        "currency": "USD"
+      },
+      "IEF": {
+        "request": {
+          "provider": "yahoo",
+          "ticker": "IEF",
+          "start": "2020-10-13",
+          "end": "2026-10-13",
+          "adjusted": true,
+          "schema": 1
+        },
+        "snapshot": "snapshot-9a74c7a506c24e97a3a04dbef4e62e4a.csv",
+        "retrieved_at_utc": "2026-10-13T17:04:22.429621+00:00",
+        "sha256": "707c3eae712cbe7fb8baf99b07119e1d02f523fabdc0bcd6e0eab47bfca9efee",
+        "currency": "USD"
+      },
+      "TLT": {
+        "request": {
+          "provider": "yahoo",
+          "ticker": "TLT",
+          "start": "2020-10-13",
+          "end": "2026-10-13",
+          "adjusted": true,
+          "schema": 1
+        },
+        "snapshot": "snapshot-cca112b676d64870bd691bfca30e583d.csv",
+        "retrieved_at_utc": "2026-10-13T17:04:22.731291+00:00",
+        "sha256": "ab31fec15e61b32800d3a05bd829e2e73d1598c8fb97c657be970c3d47ba6ace",
+        "currency": "USD"
+      },
+      "GLD": {
+        "request": {
+          "provider": "yahoo",
+          "ticker": "GLD",
+          "start": "2020-10-13",
+          "end": "2026-10-13",
+          "adjusted": true,
+          "schema": 1
+        },
+        "snapshot": "snapshot-18314ccf24564815b18bf2e2369ec323.csv",
+        "retrieved_at_utc": "2026-10-13T17:04:23.011026+00:00",
+        "sha256": "80f455eff2106fac628fa80f0fad544cf664e46f8f1b6cfaeee30795337eb4c5",
+        "currency": "USD"
+      },
+      "DBC": {
+        "request": {
+          "provider": "yahoo",
+          "ticker": "DBC",
+          "start": "2020-10-13",
+          "end": "2026-10-13",
+          "adjusted": true,
+          "schema": 1
+        },
+        "snapshot": "snapshot-6476997022cb458782a1ef96af1e3cd0.csv",
+        "retrieved_at_utc": "2026-10-13T17:04:23.284370+00:00",
+        "sha256": "9682205820b31b6416d4981029068acb1f78a87e1d06b9eeea21c32e49b74918",
+        "currency": "USD"
+      },
+      "XLE": {
+        "request": {
+          "provider": "yahoo",
+          "ticker": "XLE",
+          "start": "2020-10-13",
+          "end": "2026-10-13",
+          "adjusted": true,
+          "schema": 1
+        },
+        "snapshot": "snapshot-7432e6972f1c4c96b280bff64dc6f3f7.csv",
+        "retrieved_at_utc": "2026-10-13T17:04:23.545485+00:00",
+        "sha256": "4013b49ce5401c02f0058a98f2241619b4ad512c8731dfa7ef4a9ab9a732cc56",
+        "currency": "USD"
+      },
+      "LQD": {
+        "request": {
+          "provider": "yahoo",
+          "ticker": "LQD",
+          "start": "2020-10-13",
+          "end": "2026-10-13",
+          "adjusted": true,
+          "schema": 1
+        },
+        "snapshot": "snapshot-88681cf29bc04d0e8ea6faefa6e2fef9.csv",
+        "retrieved_at_utc": "2026-10-13T17:04:23.799911+00:00",
+        "sha256": "c9755a90832296c117bbe9c0d95dfba5532af0933ee6fc93cd08f500daf215a0",
+        "currency": "USD"
+      },
+      "HYG": {
+        "request": {
+          "provider": "yahoo",
+          "ticker": "HYG",
+          "start": "2020-10-13",
+          "end": "2026-10-13",
+          "adjusted": true,
+          "schema": 1
+        },
+        "snapshot": "snapshot-d92f391e80364474808a515030ee4288.csv",
+        "retrieved_at_utc": "2026-10-13T17:04:24.070929+00:00",
+        "sha256": "8880dbce3d8487ee99e06f082d1d73a2824a34652cff11ad11722e8da0dfbfca",
+        "currency": "USD"
+      },
+      "UUP": {
+        "request": {
+          "provider": "yahoo",
+          "ticker": "UUP",
+          "start": "2020-10-13",
+          "end": "2026-10-13",
+          "adjusted": true,
+          "schema": 1
+        },
+        "snapshot": "snapshot-9503bcc0fd8d4e0487a8f8517906dee4.csv",
+        "retrieved_at_utc": "2026-10-13T17:04:24.312639+00:00",
+        "sha256": "5a4856ce4ba9126bede0c7f2c7c8274c5602f7dfb7460ef53c8d781d7055e07b",
+        "currency": "USD"
+      }
+    },
+    "requested_start": "2020-10-13",
+    "end_exclusive": "2026-10-13",
+    "common_start": "2020-10-13",
+    "adjustment": "Vendor adjusted close; unverified total-return approximation",
+    "alignment": "Leading unavailable history trimmed; internal gaps rejected"
+  },
+  "configuration": {
+    "assets": {
+      "SPY": {
+        "asset_class": "US large-cap equities",
+        "currency": "USD",
+        "calendar": "XNYS"
+      },
+      "QQQ": {
+        "asset_class": "Nasdaq equities",
+        "currency": "USD",
+        "calendar": "XNYS"
+      },
+      "IWM": {
+        "asset_class": "US small-cap equities",
+        "currency": "USD",
+        "calendar": "XNYS"
+      },
+      "VGK": {
+        "asset_class": "European equities",
+        "currency": "USD",
+        "calendar": "XNYS"
+      },
+      "EEM": {
+        "asset_class": "Emerging-market equities",
+        "currency": "USD",
+        "calendar": "XNYS"
+      },
+      "SGOV": {
+        "asset_class": "Short-term government bonds",
+        "currency": "USD",
+        "calendar": "XNYS"
+      },
+      "IEF": {
+        "asset_class": "Intermediate government bonds",
+        "currency": "USD",
+        "calendar": "XNYS"
+      },
+      "TLT": {
+        "asset_class": "Long-term government bonds",
+        "currency": "USD",
+        "calendar": "XNYS"
+      },
+      "GLD": {
+        "asset_class": "Gold",
+        "currency": "USD",
+        "calendar": "XNYS"
+      },
+      "DBC": {
+        "asset_class": "Broad commodities",
+        "currency": "USD",
+        "calendar": "XNYS"
+      },
+      "XLE": {
+        "asset_class": "Energy equities",
+        "currency": "USD",
+        "calendar": "XNYS"
+      },
+      "LQD": {
+        "asset_class": "Investment-grade credit",
+        "currency": "USD",
+        "calendar": "XNYS"
+      },
+      "HYG": {
+        "asset_class": "High-yield credit",
+        "currency": "USD",
+        "calendar": "XNYS"
+      },
+      "UUP": {
+        "asset_class": "US dollar",
+        "currency": "USD",
+        "calendar": "XNYS"
+      }
+    },
+    "benchmark": "SPY",
+    "history_years": 6,
+    "cache_dir": "data/cross_asset",
+    "report_currency": "USD",
+    "ranking_weights": {
+      "momentum_20": 1.0,
+      "momentum_60": 2.0,
+      "momentum_120": 1.0,
+      "trend_50": 1.0,
+      "trend_200": 1.0,
+      "volatility_adjusted_momentum": 1.0,
+      "relative_strength": 1.0,
+      "volatility_60": -1.0,
+      "rolling_max_drawdown": 1.0
+    },
+    "backtest": {
+      "top_n": 4,
+      "rebalance_sessions": 20,
+      "transaction_cost_bps": 10.0,
+      "train_fraction": 0.6,
+      "periods_per_year": 252
+    },
+    "macro": {
+      "series": {
+        "DGS2": "US 2-year Treasury yield (percent)",
+        "DGS10": "US 10-year Treasury yield (percent)",
+        "BAMLH0A0HYM2": "US high-yield option-adjusted spread (percent)",
+        "CPIAUCSL": "CPI index (seasonally adjusted)",
+        "PCEPI": "PCE price index",
+        "DTWEXBGS": "Broad trade-weighted dollar index"
+      },
+      "mode": "latest"
+    }
+  },
+  "config_sha256": "56b3403d5314b7dcb2631cdf4f39f79c70f5dd3a74e8506289849b84c3fa986e",
+  "classification": "Calendar-year diagnostic slices, not fitted macro regimes",
+  "forward_ic": "Ex-post cross-sectional Spearman; overlapping 20/40-session windows, no significance or independence claim",
+  "caveat": "Descriptive audit; post-hoc sensitivity is not OOS validation. Warmup excludes early sample. 2026 is incomplete."
+}

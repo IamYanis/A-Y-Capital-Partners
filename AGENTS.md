@@ -52,3 +52,10 @@ FRED snapshots must never enter earlier backtests. Date-only vintages become
 available the following UTC day; do not invent intraday release times. Keep secrets
 out of logs and cached metadata. USD research is not GBP portfolio risk modeling.
 Competition eligibility remains unspecified. Do not claim predictive accuracy.
+
+Audit safeguards: honor macro vintage validity ends and retrieved as-of coverage,
+with the same conservative delay for release and expiry. Costs must solve
+self-financing fractional trade quantities rather than charge pre-fee target changes.
+Maintain independent share-ledger and expired-vintage regression tests. Descriptive
+regime diagnostics use future returns only for evaluation and never for signals;
+overlapping horizons do not provide independent significance tests.

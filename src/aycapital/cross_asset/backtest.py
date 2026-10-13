@@ -5,6 +5,7 @@ from typing import Any
 
 import numpy as np
 import pandas as pd
+from scipy.optimize import brentq
 
 from aycapital.cross_asset.config import positive_int
 from aycapital.cross_asset.market import MarketPanel, validate_panel
@@ -31,6 +32,39 @@ def target_weights(scores: pd.Series, top_n: int) -> pd.Series:
         raise ValueError("No complete signals available")
     target.loc[chosen.index] = 1 / len(chosen)
     return target
+
+
+def rebalance_accounting(
+    pre_trade_weights: pd.Series, target: pd.Series, cost_rate: float
+) -> tuple[float, float]:
+    """Solve post-cost NAV and actual traded notional, both per pre-trade NAV.
+
+    u + c * sum(abs(u * target - old)) = 1; fractional holdings, symmetric fees.
+    This includes initial cash purchases and fee-funded sales on retained assets.
+    """
+    if not 0 <= cost_rate < 1:
+        raise ValueError("Cost rate must be in [0,1)")
+    if not pre_trade_weights.index.equals(target.index):
+        raise ValueError("Rebalance asset labels must match")
+    old, desired = pre_trade_weights.to_numpy(), target.to_numpy()
+    if (
+        not np.isfinite(old).all()
+        or not np.isfinite(desired).all()
+        or (old < 0).any()
+        or (desired < 0).any()
+        or old.sum() > 1 + 1e-10
+        or not np.isclose(desired.sum(), 1)
+    ):
+        raise ValueError("Invalid long-only rebalance weights")
+
+    def residual(u: float) -> float:
+        return float(u + cost_rate * np.abs(u * desired - old).sum() - 1)
+
+    nav_fraction = brentq(residual, 0.0, 1.0, xtol=1e-14) if cost_rate else 1.0
+    traded = float(np.abs(nav_fraction * desired - old).sum())
+    if nav_fraction <= 0:
+        raise ValueError("Transaction costs consume capital")
+    return float(nav_fraction), traded
 
 
 def _simulate(
@@ -64,6 +98,7 @@ def _simulate(
             gross = float(old @ daily.iloc[position])
             drifted = old * (1 + daily.iloc[position]) / (1 + gross)
             traded = 0.0
+            nav_fraction = 1.0
             rebalance = (position - start) % rebalance_sessions == 0
             if name == benchmark:
                 rebalance = position == start  # Buy-and-hold benchmark, same entry cost.
@@ -75,9 +110,7 @@ def _simulate(
                     target[benchmark] = 1.0
                 else:
                     target = pd.Series(1 / len(assets), index=assets)
-                traded = float((target - drifted).abs().sum())
-                if traded * cost_rate >= 1:
-                    raise ValueError("Transaction cost consumes portfolio capital")
+                nav_fraction, traded = rebalance_accounting(drifted, target, cost_rate)
                 signal_time = panel.closes_utc.iloc[position - 1]
                 fill_time = panel.closes_utc.iloc[position]
                 if not signal_time < fill_time:
@@ -98,7 +131,7 @@ def _simulate(
                 holdings[name] = target
             else:
                 holdings[name] = drifted
-            record[name] = (1 + gross) * (1 - traded * cost_rate) - 1
+            record[name] = (1 + gross) * nav_fraction - 1
             turnover_row[name] = traded
         records.append(record)
         turnovers.append(turnover_row)
@@ -137,6 +170,8 @@ def walk_forward(
         raise ValueError("Invalid transaction costs")
     if not np.isfinite(train_fraction) or not 0 < train_fraction < 1:
         raise ValueError("Invalid training fraction")
+    if np.isinf(signals.score.to_numpy()).any():
+        raise ValueError("Infinite signal scores are invalid")
     valid = signals.score.notna().all(axis=1)
     if not valid.any():
         raise ValueError("No complete cross-asset signal dates")
@@ -195,7 +230,7 @@ def walk_forward(
             },
             "fitting": "Fixed ex-ante rules, no parameter search or full-sample fitting",
             "split_accounts": "Independent cash start; pre-split history used for OOS signals",
-            "cost_model": "Proportional traded-notional cost; ignores intraday slippage and impact",
+            "cost_model": "Self-financing proportional fees; excludes intraday slippage and impact",
             "currency": panel.metadata.get("currency"),
             "limitations": "Static universe; vendor adjustments; no predictive accuracy claim",
         },

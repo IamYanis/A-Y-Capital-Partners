@@ -182,8 +182,7 @@ they do not prevent the test suite from passing.
   is logged and trimmed to the common sample. This can shorten history below five
   years for newly listed proxies; five-plus years are requested where available.
 - Next-close fills omit intraday spreads, impact, liquidity limits and realistic
-  order execution. Costs use proportional buy-plus-sell notional, with post-cost
-  target weights; cash earns zero. This is a research approximation.
+  order execution. Costs solve a self-financing proportional buy-plus-sell notional fee equation; cash earns zero. This is a research approximation.
 - FRED needs an API key. Latest snapshots are chart-only and cannot enter earlier
   backtests. Vintage mode uses actual FRED real-time dates with a conservative
   next-UTC-day delay because intraday publication times are unavailable. Macro is
@@ -193,3 +192,13 @@ they do not prevent the test suite from passing.
 - Phase 2: verified competition mapping/constraints, point-in-time universe and
   prices, audited GBP FX, nested walk-forward parameter selection, costs/slippage
   sensitivity, macro release-timestamp validation and multiple-testing controls.
+
+## Version 0.2 quantitative audit
+
+See [the research audit](docs/audit/version_0_2_audit.md) for temporal-data fixes,
+independent fee-accounting checks, historical regime diagnostics and competition-use
+limitations. Macro as-of queries now honor validity ends and retrieval coverage.
+Backtest fees solve self-financing trade quantities, so older output artifacts must
+be regenerated. Rankings are persistent but forward rank correlations vary across
+periods; predictive reliability is not established. GBP conversion and verified
+UMushroom instrument/rule mapping remain required before competition allocations.

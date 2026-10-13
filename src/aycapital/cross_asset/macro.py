@@ -3,6 +3,7 @@
 import logging
 import os
 from dataclasses import dataclass
+from datetime import date
 from pathlib import Path
 from typing import Any, Protocol
 
@@ -71,6 +72,7 @@ class FredProvider:
         if cached is not None:
             data, metadata = cached
             data = _validate_observations(data, mode)
+            _validate_request_dates(data, request)
             return MacroData(data, metadata)
         if not self.api_key:
             raise ValueError("FRED_API_KEY is required for uncached macro retrieval")
@@ -110,6 +112,7 @@ class FredProvider:
             )
             raw["value"] = raw["value"].replace(".", np.nan).astype(float)
             data = _validate_observations(raw, mode)
+            _validate_request_dates(data, request)
             metadata = self.cache.write(
                 request,
                 data,
@@ -127,6 +130,15 @@ class FredProvider:
             raise ValueError(f"FRED retrieval/quality failure for {series}") from None
 
 
+def _validate_request_dates(data: pd.DataFrame, request: dict[str, Any]) -> None:
+    if (
+        (data.observation_date < pd.Timestamp(request["start"])).any()
+        or (data.observation_date > pd.Timestamp(request["end"])).any()
+        or (data.vintage_date > pd.Timestamp(request["as_of"])).any()
+    ):
+        raise ValueError("Macro observations/vintages exceed requested historical coverage")
+
+
 def _validate_observations(data: pd.DataFrame, mode: str) -> pd.DataFrame:
     required = {"observation_date", "vintage_date", "realtime_end", "value"}
     if data.empty or not required.issubset(data):
@@ -135,6 +147,19 @@ def _validate_observations(data: pd.DataFrame, mode: str) -> pd.DataFrame:
     data["observation_date"] = pd.to_datetime(data.observation_date)
     data["vintage_date"] = pd.to_datetime(data.vintage_date)
     data["value"] = pd.to_numeric(data.value).astype(float)
+    # Python dates preserve FRED's 9999-12-31 sentinel outside pandas nanosecond range.
+    ends = data.realtime_end.map(lambda value: date.fromisoformat(str(value)))
+    if (ends < data.vintage_date.dt.date).any():
+        raise ValueError("Macro validity end precedes vintage start")
+    data["realtime_end"] = ends.map(date.isoformat)
+    if mode == "vintages":
+        for _, group in data.sort_values("vintage_date").groupby("observation_date"):
+            previous_end = None
+            for row in group.itertuples():
+                start = row.vintage_date.date()
+                if previous_end is not None and start <= previous_end:
+                    raise ValueError("Overlapping macro validity intervals")
+                previous_end = date.fromisoformat(row.realtime_end)
     if (
         data.observation_date.isna().any()
         or data.vintage_date.isna().any()
@@ -162,10 +187,19 @@ def available_as_of(data: MacroData, timestamps: pd.DatetimeIndex) -> pd.Series:
     if timestamps.tz is None:
         raise ValueError("As-of timestamps must be timezone-aware")
     observations = _validate_observations(data.observations, "vintages")
-    available = observations.vintage_date.dt.tz_localize("UTC") + pd.Timedelta(days=1)
+    starts = observations.vintage_date.dt.date
+    ends = observations.realtime_end.map(date.fromisoformat)
+    horizon = data.metadata.get("request", {}).get("as_of")
+    horizon = date.fromisoformat(horizon) if horizon else None
     result = []
     for timestamp in timestamps:
-        known = observations.loc[available <= timestamp]
+        # Delay the entire information clock, including expiry, by one UTC day.
+        information_date = (timestamp.tz_convert("UTC") - pd.Timedelta(days=1)).date()
+        if horizon is not None and information_date > horizon:
+            result.append(np.nan)
+            continue
+        known = observations.loc[starts <= information_date].copy()
+        known.loc[ends.loc[known.index] < information_date, "value"] = np.nan
         if known.empty:
             result.append(np.nan)
             continue

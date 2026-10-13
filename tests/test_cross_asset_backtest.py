@@ -35,9 +35,9 @@ def test_next_session_close_no_early_earnings_and_costs():
         train_fraction=0.6,
     )
     first = result.returns.iloc[0]
-    assert first.strategy == pytest.approx(-0.01)  # t+1 fill only, misses t+1 doubling.
+    assert first.strategy == pytest.approx(1 / 1.01 - 1)  # t+1 fill only, misses t+1 doubling.
     assert result.returns.strategy.iloc[1] == pytest.approx(1.0)  # t+2 first earned return.
-    assert result.turnover.strategy.iloc[0] == 1.0
+    assert result.turnover.strategy.iloc[0] == pytest.approx(1 / 1.01)
     trades = result.trades
     assert (trades.signal_available_after_utc < trades.execution_close_utc).all()
     assert trades.iloc[0].execution_session == pd.Timestamp("2024-07-02")
@@ -45,7 +45,7 @@ def test_next_session_close_no_early_earnings_and_costs():
     assert pd.Timestamp("2024-07-04") not in result.returns.index
     assert len(result.statistics) == 6
     out = result.returns.loc[result.periods == "out_of_sample"]
-    assert out.strategy.iloc[0] == pytest.approx(-0.01)  # independent fresh cash account
+    assert out.strategy.iloc[0] == pytest.approx(1 / 1.01 - 1)  # independent fresh cash account
 
 
 def test_drift_turnover_not_just_target_changes():
@@ -110,3 +110,58 @@ def test_invalid_backtest_parameters():
     ):
         with pytest.raises(ValueError):
             walk_forward(panel, SignalSet({}, {}, scores), "SPY", **kwargs)
+
+
+def test_exact_fee_cash_purchase_and_asset_rotation():
+    from aycapital.cross_asset.backtest import rebalance_accounting
+
+    labels = ["SPY", "QQQ"]
+    target = pd.Series([0.0, 1.0], index=labels)
+    u, turnover = rebalance_accounting(pd.Series([0.0, 0.0], index=labels), target, 0.1)
+    assert u == pytest.approx(1 / 1.1)
+    assert turnover == pytest.approx(u)
+    u, turnover = rebalance_accounting(pd.Series([1.0, 0.0], index=labels), target, 0.1)
+    assert u == pytest.approx(0.9 / 1.1)
+    assert turnover == pytest.approx(1 + u)
+    assert u + 0.1 * turnover == pytest.approx(1)
+
+
+def test_fee_accounting_against_independent_share_ledger():
+    panel, scores = tiny_case()
+    result = walk_forward(
+        panel,
+        SignalSet({}, {}, scores),
+        "SPY",
+        top_n=2,
+        rebalance_sessions=2,
+        transaction_cost_bps=75,
+        train_fraction=0.6,
+    )
+    for label in ["in_sample", "out_of_sample"]:
+        dates = result.returns.index[result.periods == label]
+        cash, shares, nav_before = 1.0, np.zeros(2), 1.0
+        for i, date in enumerate(dates):
+            prices = panel.prices.loc[date].to_numpy()
+            value = cash + shares @ prices
+            if i % 2 == 0:
+                # Independent bisection in currency amounts, not portfolio weights.
+                low, high = 0.0, value
+                for _ in range(60):
+                    budget = (low + high) / 2
+                    fee = 0.0075 * np.abs(budget / 2 - shares * prices).sum()
+                    if budget + fee > value:
+                        high = budget
+                    else:
+                        low = budget
+                cash = 0.0
+                shares = ((low + high) / 2) / 2 / prices
+                value = shares @ prices
+            assert result.returns.loc[date, "equal_weight"] == pytest.approx(value / nav_before - 1)
+            nav_before = value
+
+
+def test_infinite_signal_scores_rejected():
+    panel, scores = tiny_case()
+    scores.iloc[2, 0] = np.inf
+    with pytest.raises(ValueError, match="Infinite"):
+        walk_forward(panel, SignalSet({}, {}, scores), "SPY", top_n=1)

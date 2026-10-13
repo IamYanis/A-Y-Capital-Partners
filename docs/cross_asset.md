@@ -87,11 +87,11 @@ first next-close fill. Curves are shown separately, not spliced into one account
 Cash earns zero; long-only research weights sum to one after fills.
 
 Between rebalances weights drift with realized returns. Traded notional is
-sum(abs(target - pre-trade drifted weight)), without halving. Initial cash-to-assets
-turnover is one; a complete asset rotation is two. Proportional bps costs apply to
-this pre-trade NAV notional, after the old holdings' session return. Target weights
-then describe post-cost NAV. This common approximation does not solve exact
-fee-dependent trade quantities and omits slippage, market impact and spreads.
+sum(abs(target - pre-trade drifted weight)), without halving. At zero costs initial cash-to-assets
+turnover is one and a complete asset rotation is two; fees reduce purchase notional. Proportional bps costs apply after the old holdings' session return. Fee-dependent
+trade quantities are solved self-consistently: u + c × sum(abs(u × target - old)) = 1,
+where u is post-cost NAV / pre-trade NAV. Target weights describe post-cost NAV.
+This fractional-holdings model still omits slippage, market impact and spreads.
 
 CAGR uses compounded net return raised to periods_per_year / number_of_sessions.
 Sharpe is annualized arithmetic mean / sample standard deviation with zero risk-free
@@ -113,7 +113,9 @@ with pagination, preserving observation date, vintage date and validity end. Vin
 records dated before their observation periods are rejected as unsuitable release
 metadata. As-of queries use only vintages available before the timestamp and then
 choose the most recently reported period, incorporating revisions only after their
-availability. Published missing values stay missing rather than reviving old values.
+availability. Expired intervals become unavailable, with the same conservative
+one-day delay applied to the information clock. Queries beyond the retrieved
+as-of horizon return missing values; validity intervals are validated. Published missing values stay missing rather than reviving old values.
 
 FRED supplies date-level vintage information, not necessarily intraday release
 instants. Availability is conservatively set to UTC midnight the following day.

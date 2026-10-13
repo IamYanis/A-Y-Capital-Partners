@@ -128,3 +128,77 @@ def test_yield_spread_and_inflation_calendar_alignment():
     assert (
         frame.loc[dates[11], "CPIAUCSL_yoy_percent"] != frame.loc[dates[11], "CPIAUCSL_yoy_percent"]
     )  # Undefined without a prior calendar year.
+
+
+def test_expired_macro_vintage_is_not_resurrected():
+    data = MacroData(
+        pd.DataFrame(
+            {
+                "observation_date": ["2024-01-01"],
+                "vintage_date": ["2024-02-10"],
+                "realtime_end": ["2024-02-12"],
+                "value": [100.0],
+            }
+        ),
+        {"historical_use": True},
+    )
+    times = pd.DatetimeIndex(["2024-02-13 21:00Z", "2024-02-14 00:00Z"])
+    values = available_as_of(data, times)
+    assert values.iloc[0] == 100  # Conservative one-day delayed information clock.
+    assert np.isnan(values.iloc[1])  # No replacement or valid record remains.
+
+
+def test_macro_snapshot_does_not_claim_coverage_after_retrieval_horizon():
+    data = MacroData(
+        pd.DataFrame(
+            {
+                "observation_date": ["2024-01-01"],
+                "vintage_date": ["2024-02-10"],
+                "realtime_end": ["9999-12-31"],
+                "value": [100.0],
+            }
+        ),
+        {"historical_use": True, "request": {"as_of": "2024-02-12"}},
+    )
+    values = available_as_of(data, pd.DatetimeIndex(["2024-02-15 21:00Z"]))
+    assert np.isnan(values.iloc[0])
+
+
+@pytest.mark.parametrize("ends", [["2024-02-09", "9999-12-31"], ["2024-03-11", "9999-12-31"]])
+def test_invalid_macro_validity_intervals_rejected(ends):
+    data = MacroData(
+        pd.DataFrame(
+            {
+                "observation_date": ["2024-01-01", "2024-01-01"],
+                "vintage_date": ["2024-02-10", "2024-03-10"],
+                "realtime_end": ends,
+                "value": [100.0, 101.0],
+            }
+        ),
+        {"historical_use": True},
+    )
+    with pytest.raises(ValueError):
+        available_as_of(data, pd.DatetimeIndex(["2024-03-15 21:00Z"]))
+
+
+def test_fred_rejects_future_vintage_from_provider(tmp_path):
+    class FutureSession:
+        def get(self, *args, **kwargs):
+            return Response(
+                {
+                    "count": 1,
+                    "observations": [
+                        {
+                            "date": "2024-01-01",
+                            "realtime_start": "2024-04-01",
+                            "realtime_end": "9999-12-31",
+                            "value": "110",
+                        }
+                    ],
+                }
+            )
+
+    provider = FredProvider(tmp_path, api_key="test-secret", session=FutureSession())
+    with pytest.raises(ValueError, match="quality"):
+        provider.load("CPIAUCSL", "2024-01-01", "2024-03-01", "2024-03-01", mode="vintages")
+    assert not list(tmp_path.rglob("snapshot-*.csv"))
