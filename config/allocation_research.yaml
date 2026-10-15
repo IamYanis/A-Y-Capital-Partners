@@ -1,0 +1,26 @@
+# Frozen before strategy results. Change rules only in a separately registered study.
+study: allocation-research-01
+historical_end: '2026-10-14'
+prospective_start: '2026-10-15'
+prospective_min_sessions: 252
+holding_sessions: [20, 40]
+estimation_sessions: 60
+trend_sessions: 200
+cost_bps: [10, 25, 50]
+# Round-trip is approximately twice these per-side, traded-notional costs.
+bootstrap_draws: 1999
+bootstrap_block_sessions: [40, 80]
+bootstrap_seed: 20261015
+minimum_holding_blocks: 40
+minimum_regime_sessions: 60
+alpha: 0.05
+benchmark: SPY
+defensive_asset: SGOV
+defensive_weights: {SGOV: 0.40, IEF: 0.25, GLD: 0.20, SPY: 0.15}
+macro_series: [CPIAUCSL, UNRATE]
+macro_snapshot_frequency: ME
+inflation_yoy_threshold: 4.0
+inflation_acceleration_pp: 0.5
+unemployment_3m_increase_pp: 0.5
+correction_drawdown: -0.10
+fallback: equal_weight_40_sessions
