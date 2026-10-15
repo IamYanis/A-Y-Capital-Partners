@@ -8,6 +8,7 @@ import pandas as pd
 import plotly.express as px
 import streamlit as st
 
+from aycapital.allocation_research.dashboard import render_allocations
 from aycapital.cross_asset.benchmarks import build_benchmarks
 from aycapital.cross_asset.config import ResearchConfig
 from aycapital.cross_asset.market import MarketPanel, session_schedule
@@ -56,13 +57,14 @@ with st.expander("Observation dates and data quality", expanded=False):
         st.warning(warning)
     st.dataframe(alignment.tail(10))
 
-historical, hypothetical, portfolios_tab, methods, forecasts_tab = st.tabs(
+(historical, hypothetical, portfolios_tab, methods, forecasts_tab, allocations_tab) = st.tabs(
     [
         "Historical GBP evidence",
         "Hypothetical scenarios",
         "Portfolio comparisons",
         "Assumptions",
         "Forecasts & validation",
+        "Allocation research",
     ]
 )
 
@@ -285,3 +287,7 @@ with methods:
 
 with forecasts_tab:
     render_forecasts(directory)
+
+
+with allocations_tab:
+    render_allocations(directory)

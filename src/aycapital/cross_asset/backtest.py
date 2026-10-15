@@ -78,6 +78,7 @@ def _simulate(
     benchmark: str,
     label: str,
     fixed_allocations: dict[str, pd.Series] | None = None,
+    target_history: dict[str, pd.DataFrame] | None = None,
 ) -> tuple[pd.DataFrame, pd.DataFrame, list[dict]]:
     """Cash starts at one. Rebalance after applying the old holdings' session return.
 
@@ -88,7 +89,9 @@ def _simulate(
     assets = prices.columns
     daily = prices.pct_change(fill_method=None)
     names = (
-        list(fixed_allocations) if fixed_allocations else ["strategy", benchmark, "equal_weight"]
+        list(target_history or fixed_allocations)
+        if target_history or fixed_allocations
+        else ["strategy", benchmark, "equal_weight"]
     )
     holdings = {name: pd.Series(0.0, index=assets) for name in names}
     records, turnovers, trades = [], [], []
@@ -106,7 +109,9 @@ def _simulate(
             if name == benchmark:
                 rebalance = position == start  # Buy-and-hold benchmark, same entry cost.
             if rebalance:
-                if fixed_allocations is not None:
+                if target_history is not None:
+                    target = target_history[name].iloc[position - 1]
+                elif fixed_allocations is not None:
                     target = fixed_allocations[name]
                 elif name == "strategy":
                     target = target_weights(scores.iloc[position - 1], top_n)
@@ -277,3 +282,50 @@ def fixed_weight_history(
         portfolios,
     )
     return returns, turnover, pd.DataFrame(trades)
+
+
+def allocation_history(
+    panel: MarketPanel,
+    targets: dict[str, pd.DataFrame],
+    benchmark: str,
+    first_execution: int,
+    holding_sessions: int,
+    cost_bps: float,
+) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+    """Decision-dated target histories, filled only at the following session close.
+
+    Targets must be complete from the first decision through the end; callers
+    own causal feature construction. Reuses the existing drift/fee/trade ledger.
+    """
+    panel = validate_panel(panel)
+    positive_int(holding_sessions, "holding_sessions")
+    positive_int(first_execution, "first_execution")
+    if first_execution >= len(panel.prices) or benchmark not in targets:
+        raise ValueError("Invalid evaluation start or missing benchmark")
+    if not np.isfinite(cost_bps) or not 0 <= cost_bps < 10000:
+        raise ValueError("Invalid allocation costs")
+    for history in targets.values():
+        if not history.index.equals(panel.prices.index) or not history.columns.equals(
+            panel.prices.columns
+        ):
+            raise ValueError("Target labels must exactly match prices")
+        valid = history.iloc[first_execution - 1 :]
+        if (
+            not np.isfinite(valid.to_numpy()).all()
+            or (valid < 0).any().any()
+            or not np.allclose(valid.sum(axis=1), 1)
+        ):
+            raise ValueError("Invalid complete long-only allocation targets")
+    daily, turnover, trades = _simulate(
+        panel,
+        next(iter(targets.values())),
+        first_execution,
+        len(panel.prices),
+        1,
+        holding_sessions,
+        cost_bps,
+        benchmark,
+        "retrospective_sequential",
+        target_history=targets,
+    )
+    return daily, turnover, pd.DataFrame(trades)

@@ -81,3 +81,18 @@ baseline comparison, unsupported regime or synthetic result to predictive skill.
 Keep reduced macro scope explicit, and reject revised macro snapshots. Forecast
 outputs must include source dates, input hashes, calibration counts and evidence
 status. Update the existing dashboard instead of creating a second forecast app.
+
+Fixed-rule allocation research: keep config/allocation_research.yaml frozen and
+its registered hash checked before CLI analysis. Protocol commit ef17a02 precedes
+strategy results. Never move historical_end/prospective_start to consume the
+sealed period or interpret retrospective rolling windows as a fresh holdout.
+Any new study needs separate registration and no retuning on the existing test
+history. No additional ML in this phase. Reuse allocation_history and the existing
+ledger; decision rows execute next close. Use GBP risk estimates, same targets
+for USD attribution, and explicit assumed costs. Macro snapshots must carry known-
+by dates; whole-vintage calendar-month calculations prevent revised-denominator
+leakage. Unknown macro is never a benign regime. Regime diagnostics overlap and
+are not independent cycles. Zero-hurdle Sharpe is not excess GBP cash Sharpe.
+Run `uv run --locked aycapital-allocations --input outputs/scenarios` only on the
+frozen historical snapshot; do not replace it with current data. The prospective
+252-session period starts 2026-10-15 and remains unscored until separately reviewed.

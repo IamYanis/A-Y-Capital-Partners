@@ -1,0 +1,7 @@
+holding_sessions,portfolio,worst_p_value,worst_sharpe_lower,complete_holding_blocks,holm_p_value,historical_gate_pass,prospective_evidence
+20,inverse_volatility,0.957,-0.3665039362389454,65,1.0,False,insufficient_evidence_untouched_period_not_evaluated
+20,risk_parity,0.737,-0.3261161136791473,65,1.0,False,insufficient_evidence_untouched_period_not_evaluated
+20,trend_following,0.621,-0.4618896490652154,65,1.0,False,insufficient_evidence_untouched_period_not_evaluated
+40,inverse_volatility,0.946,-0.3637521559258409,32,1.0,False,insufficient_evidence_untouched_period_not_evaluated
+40,risk_parity,0.752,-0.3212468741128656,32,1.0,False,insufficient_evidence_untouched_period_not_evaluated
+40,trend_following,0.4835,-0.3795717276353799,32,1.0,False,insufficient_evidence_untouched_period_not_evaluated

@@ -252,3 +252,53 @@ The delivered real-data screen found **no credible skill** among 168 non-baselin
 asset/horizon/model combinations. See [methodology](docs/forecasting.md) and the
 [validation report](docs/validation/version_0_4/validation_report.md). Point estimates,
 hypothetical scenarios and verified investment opportunities remain distinct.
+
+### Fixed-rule allocation research (after v0.4)
+
+No additional forecasting models. The registered protocol compares equal-weight,
+inverse 60-session GBP volatility, 60-session shrinkage risk parity, 200-session
+trend following and the existing defensive illustration, with 20/40-session
+rebalancing. All targets enter the audited ledger at the following close. Costs
+are 10/25/50 bps per traded side; these are transparent assumptions, not observed
+spreads. USD comparison uses identical GBP-selected targets and is not a hedged
+portfolio. SGOV is USD bills, not GBP cash.
+
+Run against the **existing frozen** GBP snapshot ending no later than 2026-10-14:
+
+```bash
+uv sync --locked --extra dev --extra dashboard
+uv run --locked aycapital-allocations --input outputs/scenarios --output outputs/allocation_research
+uv run --locked --extra dashboard streamlit run scripts/scenario_dashboard.py
+```
+
+Open the **Allocation research** tab. Streamlit defaults to port 8501; override
+with `--server.port 8502` after the script path if needed. The dashboard reads
+saved artifacts and never downloads or evaluates the holdout. The research CLI
+fetches/caches public ALFRED vintage snapshots (CPI and unemployment, no API key);
+subsequent runs reuse immutable checksummed snapshots. `--skip-macro` is an
+explicit incomplete-scope run; it never substitutes revised macro values.
+
+Month-end knowledge snapshots are usable the next UTC day, deliberately later
+than release, and revisions and calendar-month lags remain in the same vintage.
+Exact initial publication timestamps are not claimed. Macro states older than
+45 days, or observation periods older than 90 days, are unavailable. Missing
+states remain unknown, including for recovery classification.
+
+The first 252 sessions from 2026-10-15 are sealed (last scheduled session:
+2027-10-15). The CLI rejects later input dates **before loading price values**
+and rejects changes to the registered plan. No interim evaluation or parameter
+search is provided. A separately reviewed change after maturity is needed to
+unlock the holdout; 252 sessions alone are still too few 20/40-day blocks for
+strong inference. Previously inspected history is explicitly retrospective.
+
+See [the frozen protocol](docs/research/allocation_plan.md),
+[the research report](docs/research/allocation_research_01/report.md) and
+[reproduction details](docs/research/allocation_research_01/REPRODUCTION.md).
+No tested dynamic rule passed the registered historical gate; retain the
+preselected equal-weight/40-session reference for research. Competition rules,
+eligibility, overlapping proxy exposures and GBP risk limits remain unresolved.
+
+Verification: `uv run --locked --extra dashboard pytest -q` and
+`uv run --locked ruff check .`. Tests include future-price/revision perturbations,
+next-close accounting, diagonal risk-parity budgets, FX return identities,
+missing macro states, sealed-period rejection and dashboard snapshot integrity.

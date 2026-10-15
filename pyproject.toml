@@ -19,6 +19,7 @@ aycapital-demo = "aycapital.demo:main"
 aycapital-research = "aycapital.cross_asset.pipeline:main"
 aycapital-scenarios = "aycapital.cross_asset.scenario_pipeline:main"
 aycapital-forecast = "aycapital.forecasting.pipeline:main"
+aycapital-allocations = "aycapital.allocation_research.pipeline:main"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
