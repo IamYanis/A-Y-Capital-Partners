@@ -1,0 +1,17 @@
+# Fixed design settings; changing them after inspecting OOS results requires fresh evaluation.
+horizons: [5, 10, 20, 40]
+min_train_sessions: 252
+train_window_sessions: null  # null = expanding; integer = rolling, at least min_train_sessions
+min_regime_sessions: 100
+min_regime_blocks: 10
+min_oos_origins: 40
+min_calibration_origins: 20
+interval_coverage: 0.8
+ridge_alpha: 10.0
+logistic_c: 0.1
+bootstrap_draws: 4999
+bootstrap_block_origins: 5
+family_alpha: 0.05
+seed: 2026
+macro_policy: optional  # require rejects reduced-feature runs; off explicitly disables macro
+macro_series: [DGS2, DGS10, BAMLH0A0HYM2, CPIAUCSL, DTWEXBGS]

@@ -12,6 +12,7 @@ from aycapital.cross_asset.benchmarks import build_benchmarks
 from aycapital.cross_asset.config import ResearchConfig
 from aycapital.cross_asset.market import MarketPanel, session_schedule
 from aycapital.cross_asset.scenarios import ScenarioConfig, allocation, scenario_returns
+from aycapital.forecasting.dashboard import render_forecasts
 
 st.set_page_config(page_title="A-Y GBP Benchmarks & Scenarios", layout="wide")
 st.title("Cross-Asset GBP Benchmarks & Scenarios")
@@ -55,8 +56,14 @@ with st.expander("Observation dates and data quality", expanded=False):
         st.warning(warning)
     st.dataframe(alignment.tail(10))
 
-historical, hypothetical, portfolios_tab, methods = st.tabs(
-    ["Historical GBP evidence", "Hypothetical scenarios", "Portfolio comparisons", "Assumptions"]
+historical, hypothetical, portfolios_tab, methods, forecasts_tab = st.tabs(
+    [
+        "Historical GBP evidence",
+        "Hypothetical scenarios",
+        "Portfolio comparisons",
+        "Assumptions",
+        "Forecasts & validation",
+    ]
 )
 
 with historical:
@@ -142,7 +149,7 @@ with hypothetical:
     )
     scenario_name = st.selectbox("Scenario", list(scenarios.scenarios))
     selected = scenarios.scenarios[scenario_name]
-    st.write(selected["description"])
+    st.write(selected.get("description", "Manually specified hypothetical assumptions."))
     st.caption(
         f"All shocks cover {scenarios.horizon_sessions} trading sessions. "
         "They are not rescaled when the historical evidence window changes."
@@ -274,3 +281,7 @@ with methods:
         "returns with no interim rebalancing or fees. These are different calculations."
     )
     st.json(metadata["scenario_configuration"])
+
+
+with forecasts_tab:
+    render_forecasts(directory)

@@ -70,3 +70,14 @@ Keep hypothetical stress ranks separate from historical scores and any future
 empirical calibration. Show asset/FX observation dates and asynchronous-valuation
 warnings. Dashboard reads saved data only. Run dashboard integration tests with
 `uv run --locked --extra dashboard pytest -q` and scenario CLI smoke checks.
+
+Version 0.4 forecasting: build features from existing GBP snapshots and signal/
+macro availability APIs. Every training label must end strictly before the decision
+session; targets enter next close. Fit normalizers, regime thresholds and models
+inside the eligible train window. Evaluate horizon-spaced nonoverlapping outcomes;
+calibrate residual distributions only with matured earlier OOS errors. Use paired
+block uncertainty and full-family multiplicity correction; never promote a failed
+baseline comparison, unsupported regime or synthetic result to predictive skill.
+Keep reduced macro scope explicit, and reject revised macro snapshots. Forecast
+outputs must include source dates, input hashes, calibration counts and evidence
+status. Update the existing dashboard instead of creating a second forecast app.

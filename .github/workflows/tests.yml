@@ -14,3 +14,4 @@ jobs:
       - run: uv run --locked aycapital-demo
       - run: uv run --locked aycapital-research --source synthetic --start 2018-01-01 --end 2024-01-01
       - run: uv run --locked aycapital-scenarios --source synthetic --start 2018-01-01 --end 2024-01-01 --output outputs/scenarios_synthetic
+      - run: uv run --locked aycapital-forecast --input outputs/scenarios_synthetic --config tests/fixtures/forecast_smoke.yaml
