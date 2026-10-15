@@ -1,4 +1,4 @@
-# A-Y Capital Partners — Version 0.2
+# A-Y Capital Partners — Version 0.4
 
 A Python quantitative research foundation for the Umushroom UK Investment
 Competition 2026. Competition rules and eligibility have **not been configured**.
@@ -230,3 +230,25 @@ benchmark accounting, prototype integration and future empirical calibration.
 Edit config/scenarios.yaml for shock assumptions and portfolio weights. Equity/FX
 observation dates and data-quality warnings are displayed; dated FX valuations are
 not synchronized closing NAVs.
+
+## Version 0.4 probabilistic forecasting
+
+The existing scenario dashboard now includes **Forecasts & validation** for 5/10/20/40
+trading-session GBP targets. It compares unconditional references, regime-conditional
+averages, Ridge and logistic models using purged prequential tests, matched baselines,
+block-bootstrap inference and multiplicity control. Failed evidence is explicit.
+
+```bash
+uv sync --locked --extra dev --extra dashboard
+uv run --locked aycapital-scenarios
+uv run --locked aycapital-forecast --input outputs/scenarios
+uv run --locked --extra dashboard streamlit run scripts/scenario_dashboard.py
+```
+
+Configure config/forecasting.yaml. Vintage FRED inputs require FRED_API_KEY in the
+process environment. Missing macro data is disclosed as reduced price/FX scope;
+macro_policy: require refuses to substitute revised or fabricated observations.
+The delivered real-data screen found **no credible skill** among 168 non-baseline
+asset/horizon/model combinations. See [methodology](docs/forecasting.md) and the
+[validation report](docs/validation/version_0_4/validation_report.md). Point estimates,
+hypothetical scenarios and verified investment opportunities remain distinct.

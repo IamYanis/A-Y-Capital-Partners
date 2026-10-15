@@ -1,0 +1,4 @@
+# CLI contract only; this is not the design used for the committed market validation.
+horizons: [20]
+bootstrap_draws: 99
+macro_policy: "off"

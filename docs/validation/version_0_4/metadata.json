@@ -1,0 +1,569 @@
+{
+  "version": "0.4.0",
+  "source": "yahoo",
+  "decision_session": "2026-10-14",
+  "feature_scope": "reduced_price_fx",
+  "configuration": {
+    "horizons": [
+      5,
+      10,
+      20,
+      40
+    ],
+    "min_train_sessions": 252,
+    "train_window_sessions": null,
+    "min_regime_sessions": 100,
+    "min_regime_blocks": 10,
+    "min_oos_origins": 40,
+    "min_calibration_origins": 20,
+    "interval_coverage": 0.8,
+    "ridge_alpha": 10.0,
+    "logistic_c": 0.1,
+    "bootstrap_draws": 4999,
+    "bootstrap_block_origins": 5,
+    "family_alpha": 0.05,
+    "seed": 2026,
+    "macro_policy": "optional",
+    "macro_series": [
+      "DGS2",
+      "DGS10",
+      "BAMLH0A0HYM2",
+      "CPIAUCSL",
+      "DTWEXBGS"
+    ]
+  },
+  "feature_names": [
+    "gbp_per_usd_change_5",
+    "gbp_per_usd_change_20",
+    "gbp_per_usd_change_60",
+    "fx_age_calendar_days",
+    "benchmark_trend_200",
+    "benchmark_volatility_60",
+    "credit_proxy_relative_momentum_20",
+    "momentum_5",
+    "momentum_20",
+    "momentum_60",
+    "momentum_120",
+    "volatility_20",
+    "volatility_60",
+    "trend_50",
+    "trend_200",
+    "relative_strength",
+    "downside_volatility",
+    "rolling_max_drawdown"
+  ],
+  "input_provenance": {
+    "source": "yahoo",
+    "currency": "GBP",
+    "market": {
+      "source": "yahoo",
+      "calendar": "XNYS",
+      "currency": "GBP",
+      "assets": {
+        "SPY": {
+          "request": {
+            "provider": "yahoo",
+            "ticker": "SPY",
+            "start": "2020-10-13",
+            "end": "2026-10-15",
+            "adjusted": true,
+            "schema": 1
+          },
+          "snapshot": "snapshot-3fb6da321dab46d5a7d3522b09fbd11c.csv",
+          "retrieved_at_utc": "2026-10-15T10:49:29.757913+00:00",
+          "sha256": "76a6e87bc054b73546ef65b7497183bdc28ec16b70326250e32558767a3d33c4",
+          "currency": "USD"
+        },
+        "QQQ": {
+          "request": {
+            "provider": "yahoo",
+            "ticker": "QQQ",
+            "start": "2020-10-13",
+            "end": "2026-10-15",
+            "adjusted": true,
+            "schema": 1
+          },
+          "snapshot": "snapshot-3c6aa1b87b3d4813990a809b7a188579.csv",
+          "retrieved_at_utc": "2026-10-15T10:49:29.940326+00:00",
+          "sha256": "f8f54055107eaad2470ebd6b70a25f1e691f0860f5fb283643c3df9d15635f75",
+          "currency": "USD"
+        },
+        "IWM": {
+          "request": {
+            "provider": "yahoo",
+            "ticker": "IWM",
+            "start": "2020-10-13",
+            "end": "2026-10-15",
+            "adjusted": true,
+            "schema": 1
+          },
+          "snapshot": "snapshot-87c562443a4341528496e949d25ddacb.csv",
+          "retrieved_at_utc": "2026-10-15T10:49:30.131590+00:00",
+          "sha256": "22ef75983a68f1e69642d49f61bfb0366e7a944d83dfba84d7b6ab7119a5aa36",
+          "currency": "USD"
+        },
+        "VGK": {
+          "request": {
+            "provider": "yahoo",
+            "ticker": "VGK",
+            "start": "2020-10-13",
+            "end": "2026-10-15",
+            "adjusted": true,
+            "schema": 1
+          },
+          "snapshot": "snapshot-a5c60667c5d34222a9d0f11798083132.csv",
+          "retrieved_at_utc": "2026-10-15T10:49:30.329053+00:00",
+          "sha256": "852373edb114aabab577eeb280da2ddb5ba61f692bccc6c323dbca66c9fa3ec7",
+          "currency": "USD"
+        },
+        "EEM": {
+          "request": {
+            "provider": "yahoo",
+            "ticker": "EEM",
+            "start": "2020-10-13",
+            "end": "2026-10-15",
+            "adjusted": true,
+            "schema": 1
+          },
+          "snapshot": "snapshot-30b19bde04794ad19932380da61d4f8b.csv",
+          "retrieved_at_utc": "2026-10-15T10:49:30.508708+00:00",
+          "sha256": "534d4d3912f423ae4acc555f098cea1285c965b751240bc7a5faba3082b02a85",
+          "currency": "USD"
+        },
+        "SGOV": {
+          "request": {
+            "provider": "yahoo",
+            "ticker": "SGOV",
+            "start": "2020-10-13",
+            "end": "2026-10-15",
+            "adjusted": true,
+            "schema": 1
+          },
+          "snapshot": "snapshot-7cbf041c84d54544acab5ed7cd4cc2e4.csv",
+          "retrieved_at_utc": "2026-10-15T10:49:30.649749+00:00",
+          "sha256": "0c51eedd94688e42e71e1e72d05d168235cf782597b83ed32b8dcd8cb89b1101",
+          "currency": "USD"
+        },
+        "IEF": {
+          "request": {
+            "provider": "yahoo",
+            "ticker": "IEF",
+            "start": "2020-10-13",
+            "end": "2026-10-15",
+            "adjusted": true,
+            "schema": 1
+          },
+          "snapshot": "snapshot-73466cad2dbd486e977eb76163965bce.csv",
+          "retrieved_at_utc": "2026-10-15T10:49:30.848008+00:00",
+          "sha256": "fdb563e9a99bb03b5ab09a316975cb64057cd7f9f102c4e0f6a3d4f0b16e3a30",
+          "currency": "USD"
+        },
+        "TLT": {
+          "request": {
+            "provider": "yahoo",
+            "ticker": "TLT",
+            "start": "2020-10-13",
+            "end": "2026-10-15",
+            "adjusted": true,
+            "schema": 1
+          },
+          "snapshot": "snapshot-90e83dfa92134406a3ea7726e7136832.csv",
+          "retrieved_at_utc": "2026-10-15T10:49:31.019813+00:00",
+          "sha256": "0d996038c0cca263987d7bb57371f8344a3d88571aecd2a8730da6fc0aaac4ba",
+          "currency": "USD"
+        },
+        "GLD": {
+          "request": {
+            "provider": "yahoo",
+            "ticker": "GLD",
+            "start": "2020-10-13",
+            "end": "2026-10-15",
+            "adjusted": true,
+            "schema": 1
+          },
+          "snapshot": "snapshot-f060aefce9014bd0af4ecae17a1c6868.csv",
+          "retrieved_at_utc": "2026-10-15T10:49:31.147187+00:00",
+          "sha256": "f499a70ae9ad885674eb7d8dd873d8812ed810ef709406df47472c91e5285800",
+          "currency": "USD"
+        },
+        "DBC": {
+          "request": {
+            "provider": "yahoo",
+            "ticker": "DBC",
+            "start": "2020-10-13",
+            "end": "2026-10-15",
+            "adjusted": true,
+            "schema": 1
+          },
+          "snapshot": "snapshot-80bd7d180c464daa811056ddd45bed38.csv",
+          "retrieved_at_utc": "2026-10-15T10:49:31.323577+00:00",
+          "sha256": "417c8715e59b0e0acaae0c54fbc6fd59b232654303b69010dab542e2ad97be5c",
+          "currency": "USD"
+        },
+        "XLE": {
+          "request": {
+            "provider": "yahoo",
+            "ticker": "XLE",
+            "start": "2020-10-13",
+            "end": "2026-10-15",
+            "adjusted": true,
+            "schema": 1
+          },
+          "snapshot": "snapshot-758a30d603964b548b4a87d1f3cb7b7d.csv",
+          "retrieved_at_utc": "2026-10-15T10:49:31.514461+00:00",
+          "sha256": "5e9bfb52ebe681e573553d00e9d8d710e5a530b1335a6614e38d0f33157a20b9",
+          "currency": "USD"
+        },
+        "LQD": {
+          "request": {
+            "provider": "yahoo",
+            "ticker": "LQD",
+            "start": "2020-10-13",
+            "end": "2026-10-15",
+            "adjusted": true,
+            "schema": 1
+          },
+          "snapshot": "snapshot-04c62ffec89b4c6fbb154df457ebd019.csv",
+          "retrieved_at_utc": "2026-10-15T10:49:31.700922+00:00",
+          "sha256": "b991c40b7e05d902e842928301f825adbd205d21712f64fdd7aa38ce49928935",
+          "currency": "USD"
+        },
+        "HYG": {
+          "request": {
+            "provider": "yahoo",
+            "ticker": "HYG",
+            "start": "2020-10-13",
+            "end": "2026-10-15",
+            "adjusted": true,
+            "schema": 1
+          },
+          "snapshot": "snapshot-59a8e7ac78b5442c9c6cda35b779fa07.csv",
+          "retrieved_at_utc": "2026-10-15T10:49:31.900093+00:00",
+          "sha256": "76a5783f4e6dab41d9d6fcd07988421477b87ba5d1a050c1715cd6e1d02b736c",
+          "currency": "USD"
+        },
+        "UUP": {
+          "request": {
+            "provider": "yahoo",
+            "ticker": "UUP",
+            "start": "2020-10-13",
+            "end": "2026-10-15",
+            "adjusted": true,
+            "schema": 1
+          },
+          "snapshot": "snapshot-388e7ef4c4b04309b464fa16b4e19821.csv",
+          "retrieved_at_utc": "2026-10-15T10:49:32.119023+00:00",
+          "sha256": "23bad7ee79a0f22180503d0b38ba807be7336c1341dd03ebd70ada4e2e00fc85",
+          "currency": "USD"
+        }
+      },
+      "requested_start": "2020-10-13",
+      "end_exclusive": "2026-10-15",
+      "common_start": "2020-10-13",
+      "adjustment": "Vendor adjusted close; unverified total-return approximation",
+      "alignment": "Leading unavailable history trimmed; internal gaps rejected",
+      "native_currency": "USD",
+      "fx": {
+        "request": {
+          "provider": "yahoo",
+          "ticker": "GBPUSD=X",
+          "start": "2020-10-06",
+          "end": "2026-10-15",
+          "schema": 1,
+          "units": "USD per GBP"
+        },
+        "snapshot": "snapshot-afd3a789acf1431db408b1ed97601695.csv",
+        "retrieved_at_utc": "2026-10-15T10:49:32.280270+00:00",
+        "sha256": "c7838b4139c8e855d9d4dd8069b6775acfe6f4749a2c81ec33807e7e7b3173ee",
+        "availability": "Observation date + 1 UTC day",
+        "missing_observation_dates": [
+          "2025-01-01",
+          "2025-04-18",
+          "2025-04-21",
+          "2025-12-25",
+          "2026-01-01",
+          "2026-10-15"
+        ],
+        "excluded_out_of_range_dates": [
+          "2026-10-15"
+        ]
+      },
+      "fx_policy": {
+        "max_age_calendar_days": 6,
+        "availability": "Next UTC day for Yahoo daily FX"
+      },
+      "data_quality_warnings": [
+        "GBP valuation uses latest already-available dated FX quotes, not synchronized equity/FX closes; daily FX dates are conservatively usable the next UTC day.",
+        "Bounded backward FX alignment can span weekends/holidays; source dates are exported.",
+        "FX quote age exceeds four calendar days on 2 session(s); maximum observed age is 5.83 days. This may distort synchronized-currency risk estimates."
+      ]
+    },
+    "generated_at_utc": "2026-10-15T10:56:24.654835+00:00",
+    "first_observation": "2020-10-13",
+    "last_observation": "2026-10-14",
+    "asset_close_utc": "2026-10-14T20:00:00+00:00",
+    "fx_observation_date": "2026-10-13",
+    "fx_available_at_utc": "2026-10-14T00:00:00+00:00",
+    "warnings": [
+      "GBP valuation uses latest already-available dated FX quotes, not synchronized equity/FX closes; daily FX dates are conservatively usable the next UTC day.",
+      "Bounded backward FX alignment can span weekends/holidays; source dates are exported.",
+      "FX quote age exceeds four calendar days on 2 session(s); maximum observed age is 5.83 days. This may distort synchronized-currency risk estimates.",
+      "Vendor adjusted prices approximate total returns and can be revised.",
+      "Static proxy universe; common history excludes unavailable leading observations.",
+      "Historical portfolio comparisons are ex-post illustrations, not OOS validation.",
+      "Scenario shocks are manually chosen assumptions, not forecasts or calibrated estimates.",
+      "UMushroom instrument availability, eligibility and rules remain unverified.",
+      "Provider returned 1 FX date(s) outside the requested interval; raw quotes retained and explicitly excluded from conversion.",
+      "Provider FX contains 6 missing quote dates; raw cache retains them, and matching uses only valid dated quotes."
+    ],
+    "research_configuration": {
+      "assets": {
+        "SPY": {
+          "asset_class": "US large-cap equities",
+          "currency": "USD",
+          "calendar": "XNYS"
+        },
+        "QQQ": {
+          "asset_class": "Nasdaq equities",
+          "currency": "USD",
+          "calendar": "XNYS"
+        },
+        "IWM": {
+          "asset_class": "US small-cap equities",
+          "currency": "USD",
+          "calendar": "XNYS"
+        },
+        "VGK": {
+          "asset_class": "European equities",
+          "currency": "USD",
+          "calendar": "XNYS"
+        },
+        "EEM": {
+          "asset_class": "Emerging-market equities",
+          "currency": "USD",
+          "calendar": "XNYS"
+        },
+        "SGOV": {
+          "asset_class": "Short-term government bonds",
+          "currency": "USD",
+          "calendar": "XNYS"
+        },
+        "IEF": {
+          "asset_class": "Intermediate government bonds",
+          "currency": "USD",
+          "calendar": "XNYS"
+        },
+        "TLT": {
+          "asset_class": "Long-term government bonds",
+          "currency": "USD",
+          "calendar": "XNYS"
+        },
+        "GLD": {
+          "asset_class": "Gold",
+          "currency": "USD",
+          "calendar": "XNYS"
+        },
+        "DBC": {
+          "asset_class": "Broad commodities",
+          "currency": "USD",
+          "calendar": "XNYS"
+        },
+        "XLE": {
+          "asset_class": "Energy equities",
+          "currency": "USD",
+          "calendar": "XNYS"
+        },
+        "LQD": {
+          "asset_class": "Investment-grade credit",
+          "currency": "USD",
+          "calendar": "XNYS"
+        },
+        "HYG": {
+          "asset_class": "High-yield credit",
+          "currency": "USD",
+          "calendar": "XNYS"
+        },
+        "UUP": {
+          "asset_class": "US dollar",
+          "currency": "USD",
+          "calendar": "XNYS"
+        }
+      },
+      "benchmark": "SPY",
+      "history_years": 6,
+      "cache_dir": "data/cross_asset",
+      "report_currency": "USD",
+      "ranking_weights": {
+        "momentum_20": 1.0,
+        "momentum_60": 2.0,
+        "momentum_120": 1.0,
+        "trend_50": 1.0,
+        "trend_200": 1.0,
+        "volatility_adjusted_momentum": 1.0,
+        "relative_strength": 1.0,
+        "volatility_60": -1.0,
+        "rolling_max_drawdown": 1.0
+      },
+      "backtest": {
+        "top_n": 4,
+        "rebalance_sessions": 20,
+        "transaction_cost_bps": 10.0,
+        "train_fraction": 0.6,
+        "periods_per_year": 252
+      },
+      "macro": {
+        "series": {
+          "DGS2": "US 2-year Treasury yield (percent)",
+          "DGS10": "US 10-year Treasury yield (percent)",
+          "BAMLH0A0HYM2": "US high-yield option-adjusted spread (percent)",
+          "CPIAUCSL": "CPI index (seasonally adjusted)",
+          "PCEPI": "PCE price index",
+          "DTWEXBGS": "Broad trade-weighted dollar index"
+        },
+        "mode": "latest"
+      }
+    },
+    "scenario_configuration": {
+      "scenarios": {
+        "Disinflation / soft landing": {
+          "description": "Manually specified prototype assumptions; not empirical estimates.",
+          "gbp_per_usd_return": -0.03,
+          "asset_returns_usd": {
+            "SPY": 0.08,
+            "QQQ": 0.12,
+            "IWM": 0.1,
+            "VGK": 0.07,
+            "EEM": 0.09,
+            "SGOV": 0.006999999999999999,
+            "IEF": 0.05,
+            "TLT": 0.09,
+            "GLD": 0.05,
+            "DBC": -0.01,
+            "XLE": -0.02,
+            "LQD": 0.04,
+            "HYG": 0.05,
+            "UUP": 0.0
+          }
+        },
+        "Sticky inflation / rates higher": {
+          "description": "Manually specified prototype assumptions; not empirical estimates.",
+          "gbp_per_usd_return": 0.03,
+          "asset_returns_usd": {
+            "SPY": -0.08,
+            "QQQ": -0.13,
+            "IWM": -0.12,
+            "VGK": -0.09,
+            "EEM": -0.12,
+            "SGOV": 0.006,
+            "IEF": -0.04,
+            "TLT": -0.1,
+            "GLD": 0.01,
+            "DBC": 0.08,
+            "XLE": 0.1,
+            "LQD": -0.05,
+            "HYG": -0.06,
+            "UUP": 0.0
+          }
+        },
+        "Growth shock / recession": {
+          "description": "Manually specified prototype assumptions; not empirical estimates.",
+          "gbp_per_usd_return": 0.05,
+          "asset_returns_usd": {
+            "SPY": -0.18,
+            "QQQ": -0.22,
+            "IWM": -0.25,
+            "VGK": -0.18,
+            "EEM": -0.22,
+            "SGOV": 0.006,
+            "IEF": 0.08,
+            "TLT": 0.14,
+            "GLD": 0.07,
+            "DBC": -0.17,
+            "XLE": -0.23,
+            "LQD": 0.01,
+            "HYG": -0.13,
+            "UUP": 0.0
+          }
+        },
+        "Risk-on rebound": {
+          "description": "Manually specified prototype assumptions; not empirical estimates.",
+          "gbp_per_usd_return": -0.02,
+          "asset_returns_usd": {
+            "SPY": 0.12,
+            "QQQ": 0.2,
+            "IWM": 0.17,
+            "VGK": 0.11,
+            "EEM": 0.14,
+            "SGOV": 0.006,
+            "IEF": -0.02,
+            "TLT": -0.05,
+            "GLD": -0.03,
+            "DBC": 0.06,
+            "XLE": 0.08,
+            "LQD": 0.01,
+            "HYG": 0.06,
+            "UUP": 0.0
+          }
+        }
+      },
+      "portfolios": {
+        "Prototype allocation": {
+          "SPY": 0.15,
+          "VGK": 0.1,
+          "QQQ": 0.05,
+          "SGOV": 0.2,
+          "IEF": 0.2,
+          "GLD": 0.15,
+          "XLE": 0.05,
+          "LQD": 0.1
+        },
+        "Defensive illustration": {
+          "SGOV": 0.4,
+          "IEF": 0.25,
+          "GLD": 0.2,
+          "SPY": 0.15
+        },
+        "Growth illustration": {
+          "SPY": 0.45,
+          "QQQ": 0.25,
+          "IWM": 0.15,
+          "VGK": 0.15
+        }
+      },
+      "horizon_sessions": 40,
+      "max_fx_age_days": 6
+    },
+    "scenario_type": "Hypothetical terminal shock; no empirical calibration",
+    "calibration_status": "Future enhancement requiring historical regimes and OOS validation"
+  },
+  "input_sha256": {
+    "gbp_prices.csv": "a2b187016266f2db8122c241ef765cc09a424d3e5cb2087055cf4d3f2e204342",
+    "fx_alignment.csv": "becf7b107f0d5553bf1c36b6a4f93ec6bbbd71e89c0dbe258e42b1044226807b",
+    "metadata.json": "3763a9c00a6d6036efa1ad55f2acae72eca6926b2938eb908ec63da03e017042"
+  },
+  "macro_provenance": {},
+  "warnings": [
+    "GBP valuation uses latest already-available dated FX quotes, not synchronized equity/FX closes; daily FX dates are conservatively usable the next UTC day.",
+    "Bounded backward FX alignment can span weekends/holidays; source dates are exported.",
+    "FX quote age exceeds four calendar days on 2 session(s); maximum observed age is 5.83 days. This may distort synchronized-currency risk estimates.",
+    "Vendor adjusted prices approximate total returns and can be revised.",
+    "Static proxy universe; common history excludes unavailable leading observations.",
+    "Historical portfolio comparisons are ex-post illustrations, not OOS validation.",
+    "Scenario shocks are manually chosen assumptions, not forecasts or calibrated estimates.",
+    "UMushroom instrument availability, eligibility and rules remain unverified.",
+    "Provider returned 1 FX date(s) outside the requested interval; raw quotes retained and explicitly excluded from conversion.",
+    "Provider FX contains 6 missing quote dates; raw cache retains them, and matching uses only valid dated quotes.",
+    "DGS2: vintage retrieval unavailable; not replaced with revised history.",
+    "DGS10: vintage retrieval unavailable; not replaced with revised history.",
+    "BAMLH0A0HYM2: vintage retrieval unavailable; not replaced with revised history.",
+    "CPIAUCSL: vintage retrieval unavailable; not replaced with revised history.",
+    "DTWEXBGS: vintage retrieval unavailable; not replaced with revised history.",
+    "Unavailable publication-aware macro/credit series: BAMLH0A0HYM2, CPIAUCSL, DGS10, DGS2, DTWEXBGS",
+    "Current vendor history is not a point-in-time corporate-action dataset.",
+    "GBP targets inherit the disclosed asynchronous FX valuation convention.",
+    "Prior audits inspected this history; a fresh prospective holdout is still needed.",
+    "Bootstrap inference and residual intervals can fail under changing regimes.",
+    "No trading, scenario probability or competition-eligibility claim is made."
+  ],
+  "generated_at_utc": "2026-10-15T10:57:03.879841+00:00"
+}
