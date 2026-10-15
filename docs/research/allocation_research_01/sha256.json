@@ -1,0 +1,22 @@
+{
+  "REPRODUCTION.md": "b884ced978ca22c4b44cd98b251d4af709887771a888adb112f89a4be0b55310",
+  "VALIDATION.md": "043a0c4afdc80d368e0f180124d8108e484a6d679146ae25ddaf7cc569ae7a6f",
+  "daily_returns.csv.gz": "a37c723f9518daa807efda8491df4f8d253f716469f7b3798167b9486a1d816c",
+  "evidence.csv": "e59e0216fa2f749b92345a8e9589a9654351adad92e2dbf35026be66a8ec38de",
+  "holding_returns.csv": "5a278428986b075d72dba4936c6ac890c197ab57d9fa5a1149a0b01edb45cffc",
+  "input/fx_alignment.csv.gz": "3991f63910815ed4224bad2bade1fab67f9c300e998774a02b54e1958285d8dd",
+  "input/gbp_prices.csv.gz": "a33e65e387d031e19e18f46edb5954355151cce930bc538a79235391e70be992",
+  "input/metadata.json.gz": "80de63bd6d8ad3b77c7d13b2ffcb63ef353eb8bfb793e6737a8b5d0253a66e5c",
+  "macro_cache.zip": "4d81f2dd11e2ad4b960b18313c5cf60f2a7c86c7f3eb46308dcff0fc34ed81f2",
+  "macro_features.csv.gz": "a3f0fae2de0bda4d5435a2dedbb3059d2c330af55d5d29c7314e9f4adee05090",
+  "macro_snapshots.csv.gz": "a11024f2de1b2ae7409040bc4c23e60637acb3437d00388378ad3d8af69ec03e",
+  "metadata.json": "b2044cb9f256e1d705e3b5dc8cf8a364041cb3d3fde39d2583b3b95816dbb6bb",
+  "performance.csv": "508ffe1d8b462d223e29817f37ec84ac052487e6e564ab30dc93c300df0d1b65",
+  "regime_flags.csv": "99d02663360f664e4b153e59bdf1ca74e6448126d1782fa3278d0f17b6a47c1e",
+  "regimes.csv": "63aca51b64e36613068b397d0374e500b42108dd9a63475ae817df45ac668d39",
+  "report.md": "62b7d79edc09514f048be3633a329b891f0f4db8b911fc5961128aa38baf2fe8",
+  "rolling.csv.gz": "4e82efad627529e4df9c071ccd8e393956f883606c810ca45db87d6afa841d96",
+  "trades.csv.gz": "9a83769dfd3a233eebd0b3140e95507f323394515417cbc90d8d81bbf4d52068",
+  "turnover.csv.gz": "864a3974c4532f3c0e18f8077c2df2734a376a7b2280054bc261214a5aeb2b13",
+  "uncertainty.csv": "e80654ad9bf60836db48f4352648d20564136621498d01dd17eb32e7af751802"
+}

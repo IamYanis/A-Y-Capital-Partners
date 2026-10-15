@@ -1,0 +1,459 @@
+{
+  "study": "allocation-research-01",
+  "source": "yahoo",
+  "currency": "GBP",
+  "historical_evidence_only": true,
+  "evaluation_start": "2021-07-30",
+  "first_observation": "2020-10-13",
+  "last_observation": "2026-10-14",
+  "generated_at_utc": "2026-10-15T13:49:28.554867+00:00",
+  "prospective_start": "2026-10-15",
+  "prospective_status": "sealed_unscored",
+  "prospective_min_sessions": 252,
+  "prospective_last_session": "2027-10-15",
+  "plan": {
+    "study": "allocation-research-01",
+    "historical_end": "2026-10-14",
+    "prospective_start": "2026-10-15",
+    "prospective_min_sessions": 252,
+    "holding_sessions": [
+      20,
+      40
+    ],
+    "estimation_sessions": 60,
+    "trend_sessions": 200,
+    "cost_bps": [
+      10,
+      25,
+      50
+    ],
+    "bootstrap_draws": 1999,
+    "bootstrap_block_sessions": [
+      40,
+      80
+    ],
+    "bootstrap_seed": 20261015,
+    "minimum_holding_blocks": 40,
+    "minimum_regime_sessions": 60,
+    "alpha": 0.05,
+    "benchmark": "SPY",
+    "defensive_asset": "SGOV",
+    "defensive_weights": {
+      "SGOV": 0.4,
+      "IEF": 0.25,
+      "GLD": 0.2,
+      "SPY": 0.15
+    },
+    "macro_series": [
+      "CPIAUCSL",
+      "UNRATE"
+    ],
+    "macro_snapshot_frequency": "ME",
+    "inflation_yoy_threshold": 4.0,
+    "inflation_acceleration_pp": 0.5,
+    "unemployment_3m_increase_pp": 0.5,
+    "correction_drawdown": -0.1,
+    "fallback": "equal_weight_40_sessions"
+  },
+  "protocol_commit": "ef17a02",
+  "input_sha256": {
+    "gbp_prices.csv": "a2b187016266f2db8122c241ef765cc09a424d3e5cb2087055cf4d3f2e204342",
+    "fx_alignment.csv": "becf7b107f0d5553bf1c36b6a4f93ec6bbbd71e89c0dbe258e42b1044226807b",
+    "metadata.json": "3763a9c00a6d6036efa1ad55f2acae72eca6926b2938eb908ec63da03e017042"
+  },
+  "plan_sha256": "dbb12323befce5d59b91dbbd421f96130468c3736c284009e2760d897e597e70",
+  "macro_provenance": [
+    {
+      "request": {
+        "provider": "alfred_graph",
+        "series": "CPIAUCSL",
+        "vintage_dates": [
+          "2020-10-31",
+          "2020-11-30",
+          "2020-12-31",
+          "2021-01-31",
+          "2021-02-28",
+          "2021-03-31",
+          "2021-04-30",
+          "2021-05-31",
+          "2021-06-30",
+          "2021-07-31",
+          "2021-08-31",
+          "2021-09-30"
+        ],
+        "start": "2020-10-13",
+        "schema": 1
+      },
+      "snapshot": "snapshot-d53d79bfd77045939909ea216057b897.csv",
+      "retrieved_at_utc": "2026-10-15T13:45:03.331533+00:00",
+      "sha256": "fe3e1362a822e43fc40b0dea4fc9fab0b004f0d5aff07eb5be09d7b355ee6f1f",
+      "historical_use": true,
+      "source_url": "https://alfred.stlouisfed.org/graph/alfredgraph.csv",
+      "availability": "Next UTC day after known-by snapshot; not initial release"
+    },
+    {
+      "request": {
+        "provider": "alfred_graph",
+        "series": "CPIAUCSL",
+        "vintage_dates": [
+          "2021-10-31",
+          "2021-11-30",
+          "2021-12-31",
+          "2022-01-31",
+          "2022-02-28",
+          "2022-03-31",
+          "2022-04-30",
+          "2022-05-31",
+          "2022-06-30",
+          "2022-07-31",
+          "2022-08-31",
+          "2022-09-30"
+        ],
+        "start": "2020-10-13",
+        "schema": 1
+      },
+      "snapshot": "snapshot-09d221580947445da237e4022173c588.csv",
+      "retrieved_at_utc": "2026-10-15T13:45:04.590474+00:00",
+      "sha256": "5e68665b9c8f2f2987bd3c8c2e6bb66505faa762093a7274e3e2da0fb5b7d9b1",
+      "historical_use": true,
+      "source_url": "https://alfred.stlouisfed.org/graph/alfredgraph.csv",
+      "availability": "Next UTC day after known-by snapshot; not initial release"
+    },
+    {
+      "request": {
+        "provider": "alfred_graph",
+        "series": "CPIAUCSL",
+        "vintage_dates": [
+          "2022-10-31",
+          "2022-11-30",
+          "2022-12-31",
+          "2023-01-31",
+          "2023-02-28",
+          "2023-03-31",
+          "2023-04-30",
+          "2023-05-31",
+          "2023-06-30",
+          "2023-07-31",
+          "2023-08-31",
+          "2023-09-30"
+        ],
+        "start": "2020-10-13",
+        "schema": 1
+      },
+      "snapshot": "snapshot-09dae460536143239d07b7c75bd8b95c.csv",
+      "retrieved_at_utc": "2026-10-15T13:45:05.885584+00:00",
+      "sha256": "149919f1920705c3ae87c792e09ddf03c654b776cfa3e190c093ad934f1eab6c",
+      "historical_use": true,
+      "source_url": "https://alfred.stlouisfed.org/graph/alfredgraph.csv",
+      "availability": "Next UTC day after known-by snapshot; not initial release"
+    },
+    {
+      "request": {
+        "provider": "alfred_graph",
+        "series": "CPIAUCSL",
+        "vintage_dates": [
+          "2023-10-31",
+          "2023-11-30",
+          "2023-12-31",
+          "2024-01-31",
+          "2024-02-29",
+          "2024-03-31",
+          "2024-04-30",
+          "2024-05-31",
+          "2024-06-30",
+          "2024-07-31",
+          "2024-08-31",
+          "2024-09-30"
+        ],
+        "start": "2020-10-13",
+        "schema": 1
+      },
+      "snapshot": "snapshot-b2987731ca804e4088060318dd6d66dd.csv",
+      "retrieved_at_utc": "2026-10-15T13:45:07.832041+00:00",
+      "sha256": "62f760bd08dd7bb1027c6345e325af11d4b008d8355fd2e7723ad39e48d5a03e",
+      "historical_use": true,
+      "source_url": "https://alfred.stlouisfed.org/graph/alfredgraph.csv",
+      "availability": "Next UTC day after known-by snapshot; not initial release"
+    },
+    {
+      "request": {
+        "provider": "alfred_graph",
+        "series": "CPIAUCSL",
+        "vintage_dates": [
+          "2024-10-31",
+          "2024-11-30",
+          "2024-12-31",
+          "2025-01-31",
+          "2025-02-28",
+          "2025-03-31",
+          "2025-04-30",
+          "2025-05-31",
+          "2025-06-30",
+          "2025-07-31",
+          "2025-08-31",
+          "2025-09-30"
+        ],
+        "start": "2020-10-13",
+        "schema": 1
+      },
+      "snapshot": "snapshot-723a5fc20dd3425d937f80080748db9c.csv",
+      "retrieved_at_utc": "2026-10-15T13:45:09.531616+00:00",
+      "sha256": "750483a01ff1e62bd55156ce25e03865e3c30baf69cdda612d2688b7e31c0f9a",
+      "historical_use": true,
+      "source_url": "https://alfred.stlouisfed.org/graph/alfredgraph.csv",
+      "availability": "Next UTC day after known-by snapshot; not initial release"
+    },
+    {
+      "request": {
+        "provider": "alfred_graph",
+        "series": "CPIAUCSL",
+        "vintage_dates": [
+          "2025-10-31",
+          "2025-11-30",
+          "2025-12-31",
+          "2026-01-31",
+          "2026-02-28",
+          "2026-03-31",
+          "2026-04-30",
+          "2026-05-31",
+          "2026-06-30",
+          "2026-07-31",
+          "2026-08-31",
+          "2026-09-30"
+        ],
+        "start": "2020-10-13",
+        "schema": 1
+      },
+      "snapshot": "snapshot-860f465ee6fc48d2b665942abfdefec8.csv",
+      "retrieved_at_utc": "2026-10-15T13:45:14.625540+00:00",
+      "sha256": "6c1a9dbc5702c48786421037f09478fb767698e952fb68b1ddefca89065561d4",
+      "historical_use": true,
+      "source_url": "https://alfred.stlouisfed.org/graph/alfredgraph.csv",
+      "availability": "Next UTC day after known-by snapshot; not initial release"
+    },
+    {
+      "request": {
+        "provider": "alfred_graph",
+        "series": "CPIAUCSL",
+        "vintage_dates": [
+          "2026-10-14"
+        ],
+        "start": "2020-10-13",
+        "schema": 1
+      },
+      "snapshot": "snapshot-4c64a791adb648a284f488760bf0c272.csv",
+      "retrieved_at_utc": "2026-10-15T13:45:15.007108+00:00",
+      "sha256": "b02f1e3a9941ac3500b5df3c1520fa4622b9afa863b42cbae71dd13a6538629b",
+      "historical_use": true,
+      "source_url": "https://alfred.stlouisfed.org/graph/alfredgraph.csv",
+      "availability": "Next UTC day after known-by snapshot; not initial release"
+    },
+    {
+      "request": {
+        "provider": "alfred_graph",
+        "series": "UNRATE",
+        "vintage_dates": [
+          "2020-10-31",
+          "2020-11-30",
+          "2020-12-31",
+          "2021-01-31",
+          "2021-02-28",
+          "2021-03-31",
+          "2021-04-30",
+          "2021-05-31",
+          "2021-06-30",
+          "2021-07-31",
+          "2021-08-31",
+          "2021-09-30"
+        ],
+        "start": "2020-10-13",
+        "schema": 1
+      },
+      "snapshot": "snapshot-48a3cce16a9d44a0b7a329edf0f1ae75.csv",
+      "retrieved_at_utc": "2026-10-15T13:45:16.170889+00:00",
+      "sha256": "e92646dd0b6073c0e2f962e1d1e24922b30dc3a71d6af438e6f5d5f138cf4ad2",
+      "historical_use": true,
+      "source_url": "https://alfred.stlouisfed.org/graph/alfredgraph.csv",
+      "availability": "Next UTC day after known-by snapshot; not initial release"
+    },
+    {
+      "request": {
+        "provider": "alfred_graph",
+        "series": "UNRATE",
+        "vintage_dates": [
+          "2021-10-31",
+          "2021-11-30",
+          "2021-12-31",
+          "2022-01-31",
+          "2022-02-28",
+          "2022-03-31",
+          "2022-04-30",
+          "2022-05-31",
+          "2022-06-30",
+          "2022-07-31",
+          "2022-08-31",
+          "2022-09-30"
+        ],
+        "start": "2020-10-13",
+        "schema": 1
+      },
+      "snapshot": "snapshot-37794dafdba1471e96b3bc9540cef720.csv",
+      "retrieved_at_utc": "2026-10-15T13:45:18.733229+00:00",
+      "sha256": "ed027dd075c2c6d5f1e25097977d18540a7b65a81d5e188196efda11d1791140",
+      "historical_use": true,
+      "source_url": "https://alfred.stlouisfed.org/graph/alfredgraph.csv",
+      "availability": "Next UTC day after known-by snapshot; not initial release"
+    },
+    {
+      "request": {
+        "provider": "alfred_graph",
+        "series": "UNRATE",
+        "vintage_dates": [
+          "2022-10-31",
+          "2022-11-30",
+          "2022-12-31",
+          "2023-01-31",
+          "2023-02-28",
+          "2023-03-31",
+          "2023-04-30",
+          "2023-05-31",
+          "2023-06-30",
+          "2023-07-31",
+          "2023-08-31",
+          "2023-09-30"
+        ],
+        "start": "2020-10-13",
+        "schema": 1
+      },
+      "snapshot": "snapshot-91c27e79a75549139a17f345be5b46d2.csv",
+      "retrieved_at_utc": "2026-10-15T13:45:20.201359+00:00",
+      "sha256": "9963cfc8442bc935baeec08edb8664e43b4044b4fc12a9219931e2d9153160a2",
+      "historical_use": true,
+      "source_url": "https://alfred.stlouisfed.org/graph/alfredgraph.csv",
+      "availability": "Next UTC day after known-by snapshot; not initial release"
+    },
+    {
+      "request": {
+        "provider": "alfred_graph",
+        "series": "UNRATE",
+        "vintage_dates": [
+          "2023-10-31",
+          "2023-11-30",
+          "2023-12-31",
+          "2024-01-31",
+          "2024-02-29",
+          "2024-03-31",
+          "2024-04-30",
+          "2024-05-31",
+          "2024-06-30",
+          "2024-07-31",
+          "2024-08-31",
+          "2024-09-30"
+        ],
+        "start": "2020-10-13",
+        "schema": 1
+      },
+      "snapshot": "snapshot-ddd64c3ef4714efeb89789bf3d704014.csv",
+      "retrieved_at_utc": "2026-10-15T13:45:22.050757+00:00",
+      "sha256": "69a6f2a98f18a33c9d36442c0b666b8eeaff50b0025e2c66af12bfef1c6ffe80",
+      "historical_use": true,
+      "source_url": "https://alfred.stlouisfed.org/graph/alfredgraph.csv",
+      "availability": "Next UTC day after known-by snapshot; not initial release"
+    },
+    {
+      "request": {
+        "provider": "alfred_graph",
+        "series": "UNRATE",
+        "vintage_dates": [
+          "2024-10-31",
+          "2024-11-30",
+          "2024-12-31",
+          "2025-01-31",
+          "2025-02-28",
+          "2025-03-31",
+          "2025-04-30",
+          "2025-05-31",
+          "2025-06-30",
+          "2025-07-31",
+          "2025-08-31",
+          "2025-09-30"
+        ],
+        "start": "2020-10-13",
+        "schema": 1
+      },
+      "snapshot": "snapshot-0d495a379a024a08a266ef1689fc0a33.csv",
+      "retrieved_at_utc": "2026-10-15T13:45:23.992730+00:00",
+      "sha256": "53510ad8f7826640ee074d85f4e4b56cff1b9660b8a3467f39d372ddf1175060",
+      "historical_use": true,
+      "source_url": "https://alfred.stlouisfed.org/graph/alfredgraph.csv",
+      "availability": "Next UTC day after known-by snapshot; not initial release"
+    },
+    {
+      "request": {
+        "provider": "alfred_graph",
+        "series": "UNRATE",
+        "vintage_dates": [
+          "2025-10-31",
+          "2025-11-30",
+          "2025-12-31",
+          "2026-01-31",
+          "2026-02-28",
+          "2026-03-31",
+          "2026-04-30",
+          "2026-05-31",
+          "2026-06-30",
+          "2026-07-31",
+          "2026-08-31",
+          "2026-09-30"
+        ],
+        "start": "2020-10-13",
+        "schema": 1
+      },
+      "snapshot": "snapshot-1129c4032a2b45888297c76de93419bd.csv",
+      "retrieved_at_utc": "2026-10-15T13:45:25.131839+00:00",
+      "sha256": "a4b73de45005a6562fa663ac7e611c5bd35ae41e78a4a72a2d72b386d8303d1e",
+      "historical_use": true,
+      "source_url": "https://alfred.stlouisfed.org/graph/alfredgraph.csv",
+      "availability": "Next UTC day after known-by snapshot; not initial release"
+    },
+    {
+      "request": {
+        "provider": "alfred_graph",
+        "series": "UNRATE",
+        "vintage_dates": [
+          "2026-10-14"
+        ],
+        "start": "2020-10-13",
+        "schema": 1
+      },
+      "snapshot": "snapshot-522265d28f944b51a92836e0db29b820.csv",
+      "retrieved_at_utc": "2026-10-15T13:48:37.651988+00:00",
+      "sha256": "bcf652caa8e7f2231d7f3fab0e073f1f625721bfebe9deb0a9f721255c67f7da",
+      "historical_use": true,
+      "source_url": "https://alfred.stlouisfed.org/graph/alfredgraph.csv",
+      "availability": "Next UTC day after known-by snapshot; not initial release",
+      "returned_vintage_columns": [
+        "UNRATE_20261013"
+      ]
+    }
+  ],
+  "macro_warnings": [],
+  "warnings": [
+    "GBP valuation uses latest already-available dated FX quotes, not synchronized equity/FX closes; daily FX dates are conservatively usable the next UTC day.",
+    "Bounded backward FX alignment can span weekends/holidays; source dates are exported.",
+    "FX quote age exceeds four calendar days on 2 session(s); maximum observed age is 5.83 days. This may distort synchronized-currency risk estimates.",
+    "Vendor adjusted prices approximate total returns and can be revised.",
+    "Static proxy universe; common history excludes unavailable leading observations.",
+    "Historical portfolio comparisons are ex-post illustrations, not OOS validation.",
+    "UMushroom instrument availability, eligibility and rules remain unverified.",
+    "Provider returned 1 FX date(s) outside the requested interval; raw quotes retained and explicitly excluded from conversion.",
+    "Provider FX contains 6 missing quote dates; raw cache retains them, and matching uses only valid dated quotes.",
+    "No fresh holdout has been evaluated; all results are retrospective.",
+    "Cost assumptions are unverified; no measured spread, impact or capacity.",
+    "No taxes, securities lending, custody, FX entry/exit fees or terminal liquidation.",
+    "Zero-hurdle Sharpe is not excess performance over investable GBP cash.",
+    "Only one short common-history sample; regimes are overlapping diagnostics.",
+    "Monthly vintage snapshots delay availability; not exact initial release times.",
+    "Current-vendor adjusted histories are not point-in-time corporate-action data."
+  ]
+}
